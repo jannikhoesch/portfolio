@@ -9,7 +9,12 @@ export default function Page() {
   return (
     <section>
       <h1 className="font-semibold text-2xl mb-8 tracking-tighter">My Blog</h1>
-      <BlogPosts />
+        <p className="mb-16 text-left">
+            {`Welcome to my blog! Here I share some personal stories about topics that interest me.`}
+        </p>
+        <div className="my-8 mb-16">
+            <BlogPosts />
+        </div>
     </section>
   )
 }
