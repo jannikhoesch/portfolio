@@ -1,4 +1,5 @@
 import { BlogPosts } from 'app/components/posts'
+import { Projects } from 'app/components/projects'
 
 export default function Page() {
   return (
@@ -11,7 +12,7 @@ export default function Page() {
         <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
             Jannik Hösch
         </h1>
-        <p className="mb-4 text-justify">
+        <p className="mb-16 text-left">
         {`I’m a machine learning enthusiast and outdoor athlete, 
         finding unmatched satisfaction in optimizing both neural networks 
         and my own performance. Whether it’s fine-tuning hyperparameters 
@@ -20,7 +21,12 @@ export default function Page() {
         or planning my next adventure — whether it’s a bikepacking trip to the north cape, 
         or a deep dive into genAI.`}
         </p>
-        <div className="my-8">
+        <h2 className="text-xl font-semibold">My Projects</h2>
+        <div className="my-8 mb-16">
+            <Projects />
+        </div>
+        <h2 className="text-xl font-semibold">My Blog</h2>
+        <div className="my-8 mb-16">
             <BlogPosts />
         </div>
     </section>
