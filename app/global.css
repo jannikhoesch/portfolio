@@ -148,3 +148,11 @@ table {
 .title {
   text-wrap: balance;
 }
+
+.user-message {
+  text-align: right;
+}
+
+.ai-message {
+  text-align: left;
+}
