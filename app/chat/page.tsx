@@ -60,8 +60,7 @@ export default function Page() {
                                 setInput('');
                             }
                         }}
-                        className="flex-1 p-2 bg-transparent border-none outline-none focus:ring-0 text-black placeholder-gray-400"
-                        placeholder="Ask me something..."
+                        className="flex-1 p-2 bg-transparent border-none outline-none focus:ring-0 placeholder-gray-400"
                         autoFocus
                     />
                 </form>
