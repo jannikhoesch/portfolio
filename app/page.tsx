@@ -15,9 +15,7 @@ export default function Page() {
         <p className="mb-16 text-left">
         {`
         I’m Jannik Hösch — a machine learning enthusiast, outdoor athlete, and part-time overachiever who thrives on optimizing both neural networks and my own endurance. Whether I’m fine-tuning hyperparameters or shaving seconds off my 10K, I’m always chasing continuous improvement.
-
-When I’m not debugging AI models that may or may not take over the world, you’ll likely find me swimming, biking, or planning my next adventure—be it a bikepacking trip to the North Cape, an Ironman attempt, or a deep dive into generative AI. I also live in Sweden now, which means I spend an unreasonable amount on coffee and pretend to understand Swedish.
-        
+        When I’m not debugging AI models that may or may not take over the world, you’ll likely find me swimming, biking, or planning my next adventure—be it a bikepacking trip to the North Cape, an Ironman attempt, or a deep dive into generative AI. I also live in Sweden now, which means I spend an unreasonable amount on coffee and pretend to understand Swedish.
         `}
         </p>
         <h2 className="text-xl font-semibold">My Projects</h2>

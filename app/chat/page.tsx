@@ -36,7 +36,7 @@ export default function Page() {
             <div className="my-8 mb-16">
                 <div className="">
                     {messages.map((message, index) => (
-                        <div key={index} className={`mb-4 p-2 rounded-lg ${message.role === 'user' ? 'user-message' : 'ai-message'}`}>
+                        <div key={index} className={`mb-4 p-2 rounded-lg ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
                             {message.role === 'assistant' && (
                                 <img src="/profile.png" alt="Jannik" className="mb-1 w-12 h-12 rounded-full" />
                             )}
@@ -49,19 +49,20 @@ export default function Page() {
                 </div>
 
                 <form onSubmit={handleSubmit} className="flex mt-4">
-                    <input
-                        type="text"
+                    <textarea
                         value={input}
                         onChange={event => setInput(event.target.value)}
                         onKeyDown={async event => {
-                            if (event.key === 'Enter') {
+                            if (event.key === 'Enter' && !event.shiftKey) {
                                 event.preventDefault();
                                 append({ content: input, role: 'user' });
                                 setInput('');
                             }
                         }}
-                        className="flex-1 p-2 bg-transparent border-none outline-none focus:ring-0 placeholder-gray-400"
+                        className="flex-1 p-2 bg-transparent border-none outline-none focus:ring-0 placeholder-gray-400 text-right"
+                        placeholder="Type a message..."
                         autoFocus
+                        rows={1}
                     />
                 </form>
             </div>
