@@ -21,9 +21,8 @@ export default function Page() {
             </h1>
             <p className="mb-16 text-left">
                 {`
-        I’m Jannik Hösch — a machine learning enthusiast, outdoor athlete, and part-time overachiever who thrives on optimizing both neural networks and my own endurance. Whether I’m fine-tuning hyperparameters or shaving seconds off my 10K, I’m always chasing continuous improvement.
-        When I’m not debugging AI models that may or may not take over the world, you’ll likely find me swimming, biking, or planning my next adventure—be it a bikepacking trip to the North Cape, an Ironman attempt, or a deep dive into generative AI. I also live in Sweden now, which means I spend an unreasonable amount on coffee and pretend to understand Swedish.
-        `}
+                I’m Jannik Hösch, a machine learning enthusiast with a passion for outdoor activities and continuous learning. Whether I’m working on neural networks or improving my endurance, I always strive to get a little bit better. When I’m not experimenting with AI models, you can usually find me swimming, biking, or planning my next adventure—whether that’s a bikepacking trip, a race, or exploring new topics in generative AI. I’ve recently moved to Sweden, where I’m still getting used to the coffee culture and learning Swedish along the way.
+                `}
             </p>
             <h2 className="text-xl font-semibold">My Projects</h2>
             <div className="my-8 mb-16">
