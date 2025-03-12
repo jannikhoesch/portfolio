@@ -149,10 +149,25 @@ table {
   text-wrap: balance;
 }
 
-.user-message {
-  text-align: right;
+.profile-image,
+.profile-image-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.ai-message {
-  text-align: left;
+.profile-image-hover {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.relative:hover .profile-image {
+  opacity: 0;
+}
+
+.relative:hover .profile-image-hover {
+  opacity: 1;
 }
