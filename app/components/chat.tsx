@@ -8,7 +8,7 @@ export default function Chat() {
 
     useEffect(() => {
         // Set the initial message from Jannik
-        setMessages([{ id: '0', content: "Hi! I'm Jannik. Want to have a chat?", role: 'assistant' }]);
+        setMessages([{ id: '0', content: "Hi! I'm Jannik. Want to have a chat? 😄", role: 'assistant' }]);
     }, [setMessages]);
 
     const handleSubmit = async (event: React.FormEvent) => {

@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     const updatedMessages: UIMessage[] = [BEHAVIOR, ...messages];
 
     const result = streamText({
-        model: openai('gpt-4o-mini'),
+        model: openai('gpt-4o'),
         messages: updatedMessages,
     });
 
