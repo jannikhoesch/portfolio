@@ -46,10 +46,10 @@ export default function Footer() {
               className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
               rel="noopener noreferrer"
               target="_blank"
-              href="mailto:jannik.hoesch@icloud.com"
+              href="/cv.pdf"
           >
             <ArrowIcon />
-            <p className="ml-2 h-7">mail</p>
+            <p className="ml-2 h-7">cv</p>
           </a>
         </li>
         <li>
@@ -57,10 +57,10 @@ export default function Footer() {
               className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
               rel="noopener noreferrer"
               target="_blank"
-              href="/cv.pdf"
+              href="mailto:jannik.hoesch@icloud.com"
           >
             <ArrowIcon />
-            <p className="ml-2 h-7">cv</p>
+            <p className="ml-2 h-7">mail</p>
           </a>
         </li>
     </ul>
