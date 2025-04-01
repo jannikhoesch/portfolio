@@ -7,12 +7,12 @@ export default function Page() {
         <section>
             <div className="relative mb-8 w-32 h-32">
                 <img
-                    src="/profile.png"
+                    src="/picofme.png"
                     alt="Profile Image"
                     className="profile-image w-full h-full rounded-full"
                 />
                 <img
-                    src="/profile-hover.png"
+                    src="/picofme-hover.png"
                     alt="Profile Hover Image"
                     className="profile-image-hover w-full h-full rounded-full"
                 />
