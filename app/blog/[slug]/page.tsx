@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getProjects } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
+import Image from 'next/image'
 
 export async function generateStaticParams() {
   let posts = getProjects()
@@ -82,6 +83,17 @@ export default function Blog({ params }) {
           }),
         }}
       />
+      {post.metadata.image && (
+        <div className="relative w-full h-48 mb-8 rounded-xl overflow-hidden">
+          <Image
+            src={post.metadata.image}
+            alt={post.metadata.title}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+      )}
       <h1 className="title font-semibold text-2xl tracking-tighter">
         {post.metadata.title}
       </h1>
