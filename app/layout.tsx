@@ -15,6 +15,11 @@ export const metadata: Metadata = {
     template: '%s | Jannik Hösch',
   },
   description: 'Explore the portfolio of Jannik Hösch, showcasing projects, skills, and experience in web development.',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
   openGraph: {
     title: 'Portfolio of Jannik Hösch',
     description: 'Explore the portfolio of Jannik Hösch, showcasing projects, skills, and experience in web development.',

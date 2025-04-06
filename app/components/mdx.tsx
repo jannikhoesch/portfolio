@@ -44,10 +44,6 @@ function CustomLink(props) {
   return <a target="_blank" rel="noopener noreferrer" {...props} />
 }
 
-function RoundedImage(props) {
-  return <Image alt={props.alt} className="rounded-lg" {...props} />
-}
-
 function Code({ children, ...props }) {
   let codeHTML = highlight(children)
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
@@ -86,6 +82,19 @@ function createHeading(level) {
   return Heading
 }
 
+function RoundedImage(props) {
+  return (
+    <span className="block relative w-full aspect-video mb-8 rounded-xl overflow-hidden">
+      <Image
+        alt={props.alt}
+        fill
+        className="object-cover rounded-xl"
+        {...props}
+      />
+    </span>
+  )
+}
+
 let components = {
   h1: createHeading(1),
   h2: createHeading(2),
@@ -93,7 +102,7 @@ let components = {
   h4: createHeading(4),
   h5: createHeading(5),
   h6: createHeading(6),
-  Image: RoundedImage,
+  img: RoundedImage,
   a: CustomLink,
   code: Code,
   Table,

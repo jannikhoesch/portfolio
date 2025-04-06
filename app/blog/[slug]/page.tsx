@@ -84,7 +84,7 @@ export default function Blog({ params }) {
         }}
       />
       {post.metadata.image && (
-        <div className="relative w-full h-48 mb-8 rounded-xl overflow-hidden">
+        <div className="relative w-full h-96 mb-8 rounded-xl overflow-hidden">
           <Image
             src={post.metadata.image}
             alt={post.metadata.title}
@@ -92,16 +92,19 @@ export default function Blog({ params }) {
             className="object-cover"
             priority
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
+            <h1 className="title font-semibold text-4xl tracking-tighter text-white mb-2">
+              {post.metadata.title}
+            </h1>
+            <p className="text-sm text-neutral-200 mb-4">
+              {formatDate(post.metadata.publishedAt)}
+            </p>
+            <p className="text-neutral-200">
+              {post.metadata.summary}
+            </p>
+          </div>
         </div>
       )}
-      <h1 className="title font-semibold text-2xl tracking-tighter">
-        {post.metadata.title}
-      </h1>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(post.metadata.publishedAt)}
-        </p>
-      </div>
       <article className="prose">
         <CustomMDX source={post.content} />
       </article>
