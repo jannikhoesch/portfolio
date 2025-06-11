@@ -1,6 +1,7 @@
-# Portfolio Blog Starter
+# Jannik Hösch – Personal Website
 
-This is a porfolio site template complete with a blog. Includes:
+This is my personal website built using [Vercel’s Portfolio Starter Kit](https://vercel.com/templates/next.js/portfolio-starter-kit). It’s a minimal, fast, and SEO-optimized site where I share projects, stories, and demos — all wrapped in my own design and voice.
+
 
 - MDX and Markdown support
 - Optimized for SEO (sitemap, robots, JSON-LD schema)
