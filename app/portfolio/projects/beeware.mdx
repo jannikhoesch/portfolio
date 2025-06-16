@@ -1,0 +1,39 @@
+---
+title: 'Toga'
+publishedAt: '2025-02-28'
+summary: 'Contributing to an open-source project'
+image: '/portfolio/beeware/toga.jpg'
+---
+
+I recently had the opportunity to contribute to Toga — a native, cross-platform GUI toolkit for Python. Toga enables developers to build beautiful, native user interfaces for desktop, mobile, and web applications with a single, Pythonic API.
+
+## 🎯 The Issue
+
+As part of the Software Engineering course we chose an open issue from the open sourve toga project:
+The write_text and measure_text methods supported multi-line text, but the spacing between lines couldn’t be customized. This meant developers had no control over text density, which is often critical for designing responsive and accessible interfaces.
+
+## ✅ Our Solution
+
+To address this, we worked to implement a new line_height parameter for the Canvas text methods. This allows developers to specify the line spacing as a ratio of the font size — much like the familiar CSS line-height property.
+
+<video controls width="100%">
+    <source src="/portfolio/beeware/vid.mov" type="video/quicktime" />
+    Your browser does not support this video.
+</video>
+
+Key aspects of this contribution:
+- Precise control: The new parameter lets you fine-tune spacing between lines.
+- Backend support: Implemented consistently across macOS (Cocoa), Windows (WinForms), Linux (GTK), Android, and iOS.
+- Interactive example: Added a slider to the canvas testbed to demonstrate dynamic line height adjustment.
+- Tests & docs: Ensured thorough testing on all supported platforms and updated documentation accordingly.
+
+
+## Contributions
+
+Thanks to @amaekh, @Trighap52, @karindev and @HaraldHR for the collaboration and great teamwork — and of course, to the BeeWare community and @freakboy3742 for guidance.
+
+💡 Check out [Toga](https://beeware.org/project/toga/)
+
+🔗 Explore the [PR](https://github.com/beeware/toga/pull/3217)
+
+
