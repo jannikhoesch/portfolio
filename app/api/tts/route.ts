@@ -1,22 +1,22 @@
-import { ElevenLabsClient } from "elevenlabs";
+import { ElevenLabsClient } from "@elevenlabs/elevenlabs-js";
+import "dotenv/config";
 
 export async function POST(req: Request) {
     const { text } = await req.json();
     const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
     const VOICE_ID = process.env.VOICE_ID;
 
-    if (!VOICE_ID) throw new Error('Voice ID is required');
+    if (!ELEVENLABS_API_KEY) throw new Error("ELEVENLABS_API_KEY is missing");
+    if (!VOICE_ID) throw new Error("VOICE_ID is missing");
 
-    const client = new ElevenLabsClient({
-        apiKey: ELEVENLABS_API_KEY!
-    });
-      
+    const client = new ElevenLabsClient();
+
     const audio = await client.textToSpeech.convert(
         VOICE_ID,
         {
             text: text,
-            model_id: "eleven_flash_v2_5",
-            output_format: "mp3_44100_128"
+            modelId: "eleven_flash_v2_5",
+            outputFormat: "mp3_44100_128"
         }
     );
 
