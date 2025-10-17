@@ -21,10 +21,13 @@ export async function POST(req: Request) {
     );
 
     // Convert the readable stream to a Response
+    const reader = audio.getReader();
     const stream = new ReadableStream({
         async start(controller) {
-            for await (const chunk of audio) {
-                controller.enqueue(chunk);
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                controller.enqueue(value);
             }
             controller.close();
         },
