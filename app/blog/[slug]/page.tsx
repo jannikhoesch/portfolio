@@ -62,9 +62,7 @@ export default async function Blog({ params }) {
   let post = projects.find((post) => post.slug === slug)
 
   if (!post) {
-    return {
-      title: "Post Not Found",
-    };
+    notFound();
   }
 
   return (
