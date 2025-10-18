@@ -12,10 +12,14 @@ export async function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }) {
-  let post = getProjects().find((post) => post.slug === params.slug)
+export async function generateMetadata({ params }) {
+  const projects = await getProjects()
+  const { slug } = await params
+  let post = projects.find((post) => post.slug === slug)
   if (!post) {
-    return
+    return {
+      title: "Post Not Found",
+    };
   }
 
   let {
@@ -52,11 +56,15 @@ export function generateMetadata({ params }) {
   }
 }
 
-export default function Blog({ params }) {
-  let post = getProjects().find((post) => post.slug === params.slug)
+export default async function Blog({ params }) {
+  const projects = await getProjects();
+  const { slug } = await params
+  let post = projects.find((post) => post.slug === slug)
 
   if (!post) {
-    notFound()
+    return {
+      title: "Post Not Found",
+    };
   }
 
   return (
