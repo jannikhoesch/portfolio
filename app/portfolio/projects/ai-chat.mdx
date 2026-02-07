@@ -5,19 +5,35 @@ summary: 'Chat with my digital AI twin'
 image: '/portfolio/ai-chat/demo.jpg'
 ---
 
-Ever wondered what it would be like to have a conversation with me? Meet JannikGPT — my experiment in building an AI version of myself that you can talk to anytime, right here on my portfolio website.
+## The Idea
 
-This project began as a curiosity: How close can I get to creating a chatbot that doesn’t just answer questions generally, but actually talks and thinks a bit like me?
+Ever wondered what it would be like to have a conversation with me? This project began as a curiosity: how close can I get to creating a chatbot that doesn't just answer questions generally, but actually talks and thinks like me?
+
+Meet JannikGPT, my experiment in building an AI version of myself that you can talk to anytime, right here on my portfolio website.
 
 ![image](/portfolio/ai-chat/old.jpg)
 
-The first prototype (Ask Jannik) ran on a separate website using OpenAI’s API. For every message you sent, the app forwarded your text as a prompt and received a reply from GPT-4o-mini. To make it feel more like me, I prepended each conversation with an input script: it included facts about who I am, how I typically talk, and guidelines for my sense of humor and tone.
+## The First Prototype
+
+The first version, called "Ask Jannik," ran on a separate website using OpenAI's API. The implementation was straightforward: for every message, the app forwarded the text as a prompt and received a reply from GPT 4o mini.
+
+To make it feel more like me, I prepended each conversation with a system prompt that included facts about who I am, how I typically talk, my sense of humor, and my communication style. This prompt acts as a personality blueprint, guiding the AI to respond in ways that match my voice and perspective.
+
+The prototype worked, but it felt disconnected from the rest of my portfolio. I wanted a more integrated experience.
 
 ![image](/portfolio/ai-chat/chat.jpg)
 
-After testing the standalone version, I decided to make the experience smoother by embedding it directly into my website under the /chat route. Now you can talk to my digital twin right here on my website and ask me about my projects and experiences.
+## Integration and Enhancement
 
-To take it a step further, I added text-to-speech using the ElevenLabs API. I cloned my voice with audio samples and integrated the voice clone into the chatbot, so that the answers are being read by me. Since generating realistic speech can get costly fast, I implemented a play button, so you can choose which responses you want to hear out loud.
+I decided to embed the chat directly into my website under the `/chat` route. This required building a proper chat interface with streaming responses, message history, and a clean UI that matched the rest of my site's design.
+
+The implementation uses the Vercel AI SDK with OpenAI's streaming API, which allows responses to appear in real time as they're generated. This creates a more natural conversation flow compared to waiting for complete responses.
+
+To take it a step further, I added text to speech functionality using the ElevenLabs API. I cloned my voice by providing audio samples, and now the AI can speak responses in my voice (until they made it a premium feature). Since generating realistic speech can get costly, I implemented a play button on each assistant message, so visitors can choose which responses they want to hear out loud.
+
+## The Result
+
+The chat interface is now fully integrated into my portfolio. Visitors can ask about my projects, experiences, or just have a casual conversation. The system prompt is stored in a text file that I can easily update as I refine the AI's personality, making it an ongoing experiment in digital identity.
 
 
 

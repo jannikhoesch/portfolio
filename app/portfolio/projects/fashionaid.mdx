@@ -5,27 +5,30 @@ summary: 'AI-Powered Clothing Recommendations'
 image: '/portfolio/fashionaid/demo.jpg'
 ---
 
-Discover your next favorite clothing piece with just a click! Upload a picture and let FashionAId instantly recommend clothing that matches your style and preferences.
+## The Challenge
+
+The project was developed during [HackUPC](https://hackupc.com/) together with Karl Jahnel, Donato Monti, and Daniel Banov. The challenge was proposed by Inditex, where participants were given a large dataset of product images and were tasked with building a similarity matching system.
+
+The goal was clear: create a system that could understand fashion images and recommend similar items from a database. Users should be able to upload a product image or describe a product in text, and the system would return the closest matching items with similarity scores.
 
 ![image](/portfolio/fashionaid/demo.jpg)
 
-## What it does
-With FashionAId users can upload a product image or describe a product in text. The system analyzes these inputs and returns the closest matching items from our inditex database. Each recommendation includes the description of the product and the similarity score, based on this description.
+## The Solution
 
-## How it works
-Our system's backbone is a Python-based backend. We leverage a RAG (Retrieval Augmented Generation) Architecture by Product Fashion Images with the tiny Llava-1.5b model into high dimensional vector embeddings and saved them to a vector database to get efficient similarity search via cosine similarity. Our results are showcased through an easy-to-use React-developed frontend, offering users an intuitive and engaging interface.
+We built FashionAId, an AI powered clothing recommendation system that uses a RAG (Retrieval Augmented Generation) architecture to match user inputs with products in the database.
 
-## Built with
-- Python
-- Flask
-- React
-- chromaDB
-- llava
+The system works by converting fashion images into high dimensional vector embeddings using the tiny Llava 1.5b model. These embeddings capture the visual and semantic features of each product, turning images into a mathematical representation that can be compared efficiently.
 
-## About
-The project was developed during the [HackUPC](https://hackupc.com/) together with Karl Jahnel, Donato Monti and Daniel Banov. The challenge was proposed by the company Inditex, where participants were given a large dataset of product images and were tasked with building a similarity matching system. Our project submission received a honorable mention by the companies jury.
+All product embeddings are stored in ChromaDB, a vector database optimized for similarity search. When a user uploads an image or provides a text description, we convert their input into the same embedding space and use cosine similarity to find the closest matches in the database.
 
+The backend is built with Python and Flask, handling the image processing, embedding generation, and similarity search. The frontend is a React application that provides an intuitive interface for uploading images, viewing results, and exploring recommendations.
 
 ![image](/portfolio/fashionaid/hackupc.jpg)
 
-Check out our blog post on [DEVPOST](https://devpost.com/software/inditex-fashionaid).
+## The Result
+
+Each recommendation includes the product description and a similarity score, giving users both visual and textual information about why items match their input. The system can handle both image and text queries, making it flexible for different use cases.
+
+Our project submission received an honorable mention from Inditex's jury, recognizing the technical approach and user experience we delivered in just 24 hours. The hackathon was a great experience in rapid prototyping, working with computer vision models, and building a complete system from scratch.
+
+Check out our [Devpost submission](https://devpost.com/software/inditex-fashionaid) for more details.
