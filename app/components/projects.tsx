@@ -6,7 +6,7 @@ export function Projects() {
   let allProjects = getProjects()
 
   return (
-    <div className="grid gap-8">
+    <div className="grid gap-12">
       {allProjects
         .sort((a, b) => {
           if (
