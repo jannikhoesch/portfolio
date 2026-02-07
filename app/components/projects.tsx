@@ -29,6 +29,8 @@ export function Projects() {
                       alt={project.metadata.title}
                       fill
                       className="object-cover transition-transform duration-200 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={85}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
                     <p className="text-neutral-200 text-sm mb-2">
