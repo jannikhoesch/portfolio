@@ -619,6 +619,7 @@ packages:
 
   elevenlabs@1.56.0:
     resolution: {integrity: sha512-w5p7OvPJwmffqMo0bFwnS55btNkQg2jHM2QvYnqfiLr8R7+fJX5BKH85/ccoJnQA6fUubDqSjJ3+tMs/FTznTg==}
+    deprecated: This package has moved to @elevenlabs/elevenlabs-js
 
   es-define-property@1.0.1:
     resolution: {integrity: sha512-e3nRfgfUZ4rNGL232gUgX06QNyyez04KdjFrF+LTRoOXmrOgFKDg4BCdsjW8EnT69eqdYGmRpJwiPVYNrCaW3g==}
