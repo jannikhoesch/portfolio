@@ -5,35 +5,37 @@ summary: 'Contributing to an open-source project'
 image: '/portfolio/beeware/toga.jpg'
 ---
 
-I recently had the opportunity to contribute to Toga — a native, cross-platform GUI toolkit for Python. Toga enables developers to build beautiful, native user interfaces for desktop, mobile, and web applications with a single, Pythonic API.
+## The Project
 
-## 🎯 The Issue
+Toga is a native, cross platform GUI toolkit for Python that enables developers to build beautiful user interfaces for desktop, mobile, and web applications with a single, Pythonic API. As part of a Software Engineering course, we chose to contribute to this open source project by tackling a real issue that affected developers using the framework.
 
-As part of the Software Engineering course we chose an open issue from the open sourve toga project:
-The write_text and measure_text methods supported multi-line text, but the spacing between lines couldn’t be customized. This meant developers had no control over text density, which is often critical for designing responsive and accessible interfaces.
+![image](/portfolio/beeware/demo.jpg)
 
-## ✅ Our Solution
+## The Challenge
 
-To address this, we worked to implement a new line_height parameter for the Canvas text methods. This allows developers to specify the line spacing as a ratio of the font size — much like the familiar CSS line-height property.
+The `write_text` and `measure_text` methods in Toga's Canvas API supported multi line text, but the spacing between lines couldn't be customized. This limitation meant developers had no control over text density, which is often critical for designing responsive and accessible interfaces. When you're building applications that need precise typography control, this becomes a real problem.
+
+We identified this as a valuable contribution opportunity: implementing line height control would give developers the flexibility they need while maintaining Toga's simple, Pythonic API.
+
+## Our Solution
+
+We implemented a new `line_height` parameter for the Canvas text methods, allowing developers to specify line spacing as a ratio of the font size, much like the familiar CSS line height property. This gives precise control over text density while keeping the API intuitive.
 
 <video controls width="100%">
     <source src="/portfolio/beeware/vid.mov" type="video/quicktime" />
     Your browser does not support this video.
 </video>
 
-Key aspects of this contribution:
-- Precise control: The new parameter lets you fine-tune spacing between lines.
-- Backend support: Implemented consistently across macOS (Cocoa), Windows (WinForms), Linux (GTK), Android, and iOS.
-- Interactive example: Added a slider to the canvas testbed to demonstrate dynamic line height adjustment.
-- Tests & docs: Ensured thorough testing on all supported platforms and updated documentation accordingly.
+The implementation required consistent support across all of Toga's backends: macOS using Cocoa, Windows using WinForms, Linux using GTK, and mobile platforms Android and iOS. Each platform has its own text rendering system, so we needed to understand how each one handles line spacing and adapt our implementation accordingly.
 
+We added an interactive slider to the canvas testbed to demonstrate dynamic line height adjustment, making it easy for developers to see the feature in action. We also ensured thorough testing on all supported platforms and updated the documentation to reflect the new capability.
 
-## Contributions
+## The Experience
 
-Thanks to @amaekh, @Trighap52, @karindev and @HaraldHR for the collaboration and great teamwork — and of course, to the BeeWare community and @freakboy3742 for guidance.
+Contributing to Toga was a great introduction to open source development. Working with the BeeWare community, particularly with guidance from @freakboy3742, taught us about the importance of cross platform compatibility and maintaining API consistency. Collaborating with @amaekh, @Trighap52, @karindev, and @HaraldHR showed us how effective teamwork can turn a complex problem into a clean solution.
 
-💡 Check out [Toga](https://beeware.org/project/toga/)
+The pull request was accepted and merged, and the feature is now available to all Toga developers. It's satisfying to know that our contribution helps other developers build better interfaces.
 
-🔗 Explore the [PR](https://github.com/beeware/toga/pull/3217)
+Check out [Toga](https://beeware.org/project/toga/) and explore our [pull request](https://github.com/beeware/toga/pull/3217).
 
 

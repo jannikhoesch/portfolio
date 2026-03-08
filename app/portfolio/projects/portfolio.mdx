@@ -1,33 +1,65 @@
 ---
 title: 'Portfolio'
 publishedAt: '2025-03-02'
-summary: 'Website showcasing my personal projects and achievements'
+summary: 'Website showcasing my personal projects'
 image: '/portfolio/portfolio/home.jpg'
 ---
 
-If you’re reading this, it means you’ve already found my website — welcome!
+## Overview
 
-I built this site as a space to share my personal projects, achievements, and stories. Here, you’ll find snapshots of what I’ve been working on, what I’m learning, and where I’m heading next. It’s a place to keep track of my journey in computer science, my experiments with machine learning, and the occasional adventure that happens offline too.
+I built this website as a space to share my personal projects, achievements, and stories. It's a place to keep track of my journey in computer science, my experiments with machine learning, and the occasional adventure that happens offline too.
 
-## About
-This site is powered by [Vercel’s Portfolio Starter Kit](https://vercel.com/templates/next.js/portfolio-starter-kit) — it’s minimal, fast, and SEO-friendly, but every page carries my own design touches and personality. I wanted something clean and flexible and I believe that the design of my website fulfills these purposes.
+The site is built on [Next.js 15](https://nextjs.org/) using the [Vercel Portfolio Starter Kit](https://vercel.com/templates/next.js/portfolio-starter-kit) as a foundation. While the starter provided the core structure, I've customized every aspect to reflect my own design sensibilities and added several unique features that make it distinctly mine.
 
-## Structure
-You can explore it all through these sections:
-- / — Home
 ![image](/portfolio/portfolio/home.jpg)
-<br /><br />
 
-- /projects — My favourite portfolio projects
+## Design Philosophy
+
+I wanted something clean, minimal, and fast. The design prioritizes readability and performance while maintaining personality through subtle interactions and thoughtful typography. The site uses a dark mode that adapts to system preferences, and the navigation includes a smooth sliding indicator that highlights the active section.
+
+The layout is intentionally constrained to a maximum width, creating a focused reading experience that doesn't stretch content uncomfortably on large screens. This constraint also makes the site feel more personal and less corporate.
+
+## Features
+
+#### Home
+
+The landing page introduces who I am with a brief bio and links to explore further. It's intentionally simple, letting visitors quickly understand what the site is about and where they can go next.
+
+![image](/portfolio/portfolio/home.jpg)
+
+#### Projects
+
+The projects section showcases my favorite work, each presented as an MDX file with frontmatter metadata. Projects are automatically sorted by publication date and displayed with cover images, summaries, and publication dates. The system makes it easy to add new projects by simply creating a new MDX file in the projects directory.
+
 ![image](/portfolio/portfolio/projects.jpg)
-<br /><br />
 
-- /blog — Personal stories and reflections
+#### Blog
+
+Similar to projects, the blog section uses MDX for content management. Each post can include images, code blocks with syntax highlighting, and full markdown support. The blog is where I share personal stories, reflections, and longer form content about my experiences.
+
 ![image](/portfolio/portfolio/blog.jpg)
-<br /><br />
 
-- /chat — Talk to my AI twin
+#### Chat
+
+One of the more unique features is the AI chat interface where visitors can talk to an AI version of myself. The chat uses OpenAI's GPT models with a custom system prompt based on my personality and background. It also includes text to speech functionality powered by ElevenLabs, allowing the AI to speak responses aloud.
+
+The chat interface streams responses in real time and maintains conversation history, creating a natural dialogue experience. It's an experiment in digital identity and what it means to create an AI representation of oneself.
+
 ![image](/portfolio/portfolio/chat.jpg)
+
+## Technical Stack
+
+The site is built with Next.js 15 using the App Router, TypeScript for type safety, and Tailwind CSS for styling. Content is managed through MDX files, which allows me to write in markdown while embedding React components when needed.
+
+For the AI features, I'm using the Vercel AI SDK with OpenAI for chat functionality and ElevenLabs for text to speech. The chat behavior is defined in a text file that gets loaded as the system prompt, making it easy to refine the AI's personality over time.
+
+SEO is handled through Next.js metadata API, with automatic sitemap generation and Open Graph image generation. The site also includes RSS feed support for the blog section.
+
+## Development
+
+The codebase is structured to be maintainable and extensible. Shared utilities handle MDX parsing and date formatting, while components are modular and reusable. The site is deployed on Vercel, which provides excellent performance and automatic deployments from the main branch.
+
+Adding new content is straightforward: create an MDX file with frontmatter, add any images to the public directory, and the site automatically picks it up. This simplicity was important to me, as I wanted to focus on writing rather than wrestling with a complex CMS.
 
 
 

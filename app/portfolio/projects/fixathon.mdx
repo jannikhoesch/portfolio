@@ -1,0 +1,55 @@
+---
+title: 'Norrsken Fixathon'
+publishedAt: '2025-12-06'
+summary: 'Prompt what matters'
+image: '/portfolio/fixathon/fixathon_cover.jpg'
+---
+
+## The Fixathon
+
+The Norrsken Fixathon 2025 brought together developers, researchers, and innovators to tackle challenges across different impact areas: Our Planet, Health, AI safety, Society, and Economy. We chose to focus on the **Health** challenge, specifically exploring cell intelligence.
+
+![image](/portfolio/fixathon/fixathon_1.jpg)
+
+Every cell in our bodies tells a story. How we respond to our environment, how we change under stress, how we resist or succumb to disease. Tahoe Therapeutics had just released Tahoe-x1, a massive open-source model trained on 266 million cells, capable of predicting how cells change under different biological or chemical conditions. It's one of the largest public resources ever created for studying cellular responses.
+
+The challenge was clear: how can we use this model to build tools and insights that accelerate discovery, improve health outcomes, and make cellular intelligence actionable?
+
+We started quite spontaneously, without expectations. A last-minute decision to join, a quick team formation with Maxime Edouard and Kateryna Domkina, and we found ourselves at the beautiful Norrsken House, surrounded by passionate builders tackling the same challenge.
+
+
+![image](/portfolio/fixathon/fixathon_team.jpg)
+
+
+The atmosphere was electric. Teams from diverse backgrounds were diving deep into the Tahoe-x1 dataset, exploring ways to visualize cellular data, build drug discovery tools, or create interfaces that could help scientists navigate this massive biological space.
+
+![image](/portfolio/fixathon/fixathon_2.jpg)
+
+It was overall an amazing experience that showed us what's possible to build in just a couple of hours when you combine the right tools, the right data, and the right mindset. The Fixathon wasn't just about winning—it was about pushing boundaries, learning from each other, and proving that with modern AI tools and APIs, you can create something substantial in a weekend.
+
+## 🧬 Elix
+
+What we built is **Elix**, an AI engine that discovers new therapeutic uses for existing drugs by analyzing phenotypic effects rather than chemical structure.
+
+Traditional drug discovery focuses on chemical similarity: if two molecules look similar, they might behave similarly. But this misses connections between compounds that look different but actually produce similar cellular responses. Elix changes this paradigm by mapping how drugs actually alter cellular states, turning biology into a navigable geometric space.
+
+![image](/portfolio/fixathon/fixathon_demo.jpg)
+
+### How It Works
+
+Elix operates on a simple but powerful principle: drugs with similar cellular effects are mathematically close in high-dimensional space.
+
+**Data Processing**: We processed the Tahoe-100M dataset, specifically the A549 Lung Cancer subset, aggregating single-cell transcriptomic embeddings across multiple samples per drug to create robust drug signatures.
+
+**Delta Vector Calculation**: The we computed the precise biological signal by subtracting the global DMSO baseline:
+
+```
+V_delta = V_drug_aggregate - V_Global_DMSO_Baseline
+```
+
+This cancels out experimental noise and isolates pure drug effects, giving us a clean signal of how each compound actually changes cellular behavior.
+
+**Vector Search**: Drug signatures are stored in Qdrant Cloud, enabling fast cosine-similarity search in this high-dimensional latent space. Researchers can query any drug and instantly find its phenotypic neighbors.
+
+**Interactive Exploration**: The frontend provides an intuitive interface where users can explore drug relationships through an interactive network graph, adjust similarity thresholds, and get AI-powered explanations about drug mechanisms and potential repurposing opportunities.
+

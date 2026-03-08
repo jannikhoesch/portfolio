@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getProjects } from 'app/portfolio/utils'
 import { baseUrl } from 'app/sitemap'
+import Image from 'next/image'
 
 export async function generateStaticParams() {
   let projects = getProjects()
@@ -11,10 +12,14 @@ export async function generateStaticParams() {
   }))
 }
 
-export function generateMetadata({ params }) {
-  let project = getProjects().find((project) => project.slug === params.slug)
+export async function generateMetadata({ params }) {
+  const { slug } = await params
+  const projects = await getProjects()
+  let project = projects.find((project) => project.slug === slug)
   if (!project) {
-    return
+    return {
+      title: "Project Not Found",
+    };
   }
 
   let {
@@ -51,11 +56,13 @@ export function generateMetadata({ params }) {
   }
 }
 
-export default function Projects({ params }) {
-  let project = getProjects().find((project) => project.slug === params.slug)
+export default async function Projects({ params }) {
+  const projects = await getProjects();
+  const { slug } = await params
+  let project = projects.find((project) => project.slug === slug)
 
   if (!project) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -82,17 +89,30 @@ export default function Projects({ params }) {
           }),
         }}
       />
-      <h1 className="title font-semibold text-2xl tracking-tighter">
-        {project.metadata.title}
-      </h1>
-      <h2 className="prose">
-        {project.metadata.summary}
-      </h2>
-      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
-          {formatDate(project.metadata.publishedAt)}
-        </p>
-      </div>
+      {project.metadata.image && (
+        <div className="relative w-full h-96 mb-8 rounded-xl overflow-hidden">
+          <Image
+            src={project.metadata.image}
+            alt={project.metadata.title}
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+            quality={90}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
+            <h1 className="title font-semibold text-4xl tracking-tighter text-white mb-2">
+              {project.metadata.title}
+            </h1>
+            <p className="text-sm text-neutral-200 mb-4">
+              {formatDate(project.metadata.publishedAt)}
+            </p>
+            <p className="text-neutral-200">
+              {project.metadata.summary}
+            </p>
+          </div>
+        </div>
+      )}
       <article className="prose">
         <CustomMDX source={project.content} />
       </article>
