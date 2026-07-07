@@ -48,14 +48,14 @@ export function Projects() {
                 {project.metadata.title}
               </Link>
               <div className="flex items-start gap-2 pointer-events-auto">
-                {project.metadata.github && (
-                  <GitHubLink href={project.metadata.github} className="mt-0.5 shrink-0" />
-                )}
                 <Link href={`/portfolio/${project.slug}`} className="min-w-0 flex-1">
                   <p className="text-neutral-200 line-clamp-2">
                     {project.metadata.summary}
                   </p>
                 </Link>
+                {project.metadata.github && (
+                  <GitHubLink href={project.metadata.github} className="mt-0.5 shrink-0" />
+                )}
               </div>
             </div>
           </div>

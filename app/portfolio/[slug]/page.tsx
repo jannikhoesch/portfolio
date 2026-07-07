@@ -109,12 +109,12 @@ export default async function Projects({ params }) {
               {formatDate(project.metadata.publishedAt)}
             </p>
             <div className="flex items-start gap-2">
+              <p className="text-neutral-200 flex-1">
+                {project.metadata.summary}
+              </p>
               {project.metadata.github && (
                 <GitHubLink href={project.metadata.github} className="mt-1 shrink-0" />
               )}
-              <p className="text-neutral-200">
-                {project.metadata.summary}
-              </p>
             </div>
           </div>
         </div>
