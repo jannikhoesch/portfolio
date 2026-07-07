@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
+import { GitHubLink } from 'app/components/github-link'
 import { formatDate, getProjects } from 'app/portfolio/utils'
 import { baseUrl } from 'app/sitemap'
 import Image from 'next/image'
@@ -101,6 +102,11 @@ export default async function Projects({ params }) {
             quality={90}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
+            {project.metadata.github && (
+              <div className="absolute top-6 right-6">
+                <GitHubLink href={project.metadata.github} />
+              </div>
+            )}
             <h1 className="title font-semibold text-4xl tracking-tighter text-white mb-2">
               {project.metadata.title}
             </h1>

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { formatDate, getProjects } from 'app/portfolio/utils'
+import { GitHubLink } from './github-link'
 
 export function Projects() {
   let allProjects = getProjects()
@@ -17,11 +18,16 @@ export function Projects() {
           return 1
         })
         .map((project) => (
-          <Link
-            key={project.slug}
-            className="flex flex-col space-y-4 group"
-            href={`/portfolio/${project.slug}`}
-          >
+          <div key={project.slug} className="group relative">
+            {project.metadata.github && (
+              <div className="absolute top-4 right-4 z-20">
+                <GitHubLink href={project.metadata.github} />
+              </div>
+            )}
+            <Link
+              className="flex flex-col space-y-4"
+              href={`/portfolio/${project.slug}`}
+            >
             {project.metadata.image && (
                 <div className="relative w-full h-64 overflow-hidden rounded-xl">
                   <Image
@@ -45,7 +51,8 @@ export function Projects() {
                   </div>
                 </div>
             )}
-          </Link>
+            </Link>
+          </div>
         ))}
     </div>
   )
