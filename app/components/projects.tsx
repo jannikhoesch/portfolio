@@ -18,43 +18,51 @@ export function Projects() {
           return 1
         })
         .map((project) => (
-          <div key={project.slug} className="group relative">
-            {project.metadata.github && (
-              <div className="absolute top-4 right-4 z-20">
-                <GitHubLink href={project.metadata.github} />
-              </div>
-            )}
+          <div key={project.slug} className="group relative overflow-hidden rounded-xl">
             <Link
-              className="flex flex-col space-y-4"
+              className="block"
               href={`/portfolio/${project.slug}`}
             >
-            {project.metadata.image && (
-                <div className="relative w-full h-64 overflow-hidden rounded-xl">
+              {project.metadata.image && (
+                <div className="relative w-full h-64">
                   <Image
-                      src={project.metadata.image}
-                      alt={project.metadata.title}
-                      fill
-                      className="object-cover transition-transform duration-200 group-hover:scale-105"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      quality={85}
+                    src={project.metadata.image}
+                    alt={project.metadata.title}
+                    fill
+                    className="object-cover transition-transform duration-200 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={85}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                    <p className="text-neutral-200 text-sm mb-2">
-                      {formatDate(project.metadata.publishedAt, false)}
-                    </p>
-                    <p className="text-white text-xl font-medium tracking-tight mb-2">
-                      {project.metadata.title}
-                    </p>
-                    <p className="text-neutral-200 line-clamp-2">
-                      {project.metadata.summary}
-                    </p>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 </div>
-            )}
+              )}
             </Link>
+            <div className="absolute inset-x-0 bottom-0 p-6 pointer-events-none">
+              <p className="text-neutral-200 text-sm mb-2">
+                {formatDate(project.metadata.publishedAt, false)}
+              </p>
+              <div className="flex items-center gap-2 mb-2 pointer-events-auto">
+                <Link
+                  href={`/portfolio/${project.slug}`}
+                  className="text-white text-xl font-medium tracking-tight"
+                >
+                  {project.metadata.title}
+                </Link>
+                {project.metadata.github && (
+                  <GitHubLink href={project.metadata.github} />
+                )}
+              </div>
+              <Link
+                href={`/portfolio/${project.slug}`}
+                className="pointer-events-auto block"
+              >
+                <p className="text-neutral-200 line-clamp-2">
+                  {project.metadata.summary}
+                </p>
+              </Link>
+            </div>
           </div>
         ))}
     </div>
   )
 }
-

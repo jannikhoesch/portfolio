@@ -102,14 +102,14 @@ export default async function Projects({ params }) {
             quality={90}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
-            {project.metadata.github && (
-              <div className="absolute top-6 right-6">
-                <GitHubLink href={project.metadata.github} />
-              </div>
-            )}
-            <h1 className="title font-semibold text-4xl tracking-tighter text-white mb-2">
-              {project.metadata.title}
-            </h1>
+            <div className="flex items-center gap-3 mb-2">
+              <h1 className="title font-semibold text-4xl tracking-tighter text-white">
+                {project.metadata.title}
+              </h1>
+              {project.metadata.github && (
+                <GitHubLink href={project.metadata.github} className="mb-1" />
+              )}
+            </div>
             <p className="text-sm text-neutral-200 mb-4">
               {formatDate(project.metadata.publishedAt)}
             </p>

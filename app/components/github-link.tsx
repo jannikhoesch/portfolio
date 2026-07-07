@@ -1,8 +1,8 @@
 function GitHubIcon() {
   return (
     <svg
-      width="16"
-      height="16"
+      width="14"
+      height="14"
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden="true"
@@ -24,10 +24,9 @@ export function GitHubLink({ href, className = '' }: GitHubLinkProps) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="View project on GitHub"
-      className={`inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-sm text-neutral-200 transition-all hover:bg-white/10 hover:text-white ${className}`}
+      className={`inline-flex text-neutral-300 transition-colors hover:text-white ${className}`}
     >
       <GitHubIcon />
-      <span>github</span>
     </a>
   )
 }
