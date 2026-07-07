@@ -41,25 +41,22 @@ export function Projects() {
               <p className="text-neutral-200 text-sm mb-2">
                 {formatDate(project.metadata.publishedAt, false)}
               </p>
-              <div className="flex items-center gap-2 mb-2 pointer-events-auto">
-                <Link
-                  href={`/portfolio/${project.slug}`}
-                  className="text-white text-xl font-medium tracking-tight"
-                >
-                  {project.metadata.title}
-                </Link>
-                {project.metadata.github && (
-                  <GitHubLink href={project.metadata.github} />
-                )}
-              </div>
               <Link
                 href={`/portfolio/${project.slug}`}
-                className="pointer-events-auto block"
+                className="text-white text-xl font-medium tracking-tight mb-2 pointer-events-auto block"
               >
-                <p className="text-neutral-200 line-clamp-2">
-                  {project.metadata.summary}
-                </p>
+                {project.metadata.title}
               </Link>
+              <div className="flex items-start gap-2 pointer-events-auto">
+                {project.metadata.github && (
+                  <GitHubLink href={project.metadata.github} className="mt-0.5 shrink-0" />
+                )}
+                <Link href={`/portfolio/${project.slug}`} className="min-w-0 flex-1">
+                  <p className="text-neutral-200 line-clamp-2">
+                    {project.metadata.summary}
+                  </p>
+                </Link>
+              </div>
             </div>
           </div>
         ))}
