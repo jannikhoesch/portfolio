@@ -29,6 +29,7 @@
 
 html {
   min-width: 360px;
+  color-scheme: light;
 }
 
 .prose .anchor {
