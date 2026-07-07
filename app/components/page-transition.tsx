@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { useRef } from 'react'
 
 // Must match the tab order in nav.tsx so slide direction follows the tab bar.
 const sectionOrder = ['/', '/portfolio', '/blog', '/chat']
@@ -15,29 +15,20 @@ function getSectionIndex(pathname: string): number {
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || '/'
-  const [transition, setTransition] = useState({
-    pathname,
-    index: getSectionIndex(pathname),
-    animationClass: '',
-  })
+  const previousIndexRef = useRef<number | null>(null)
 
-  if (transition.pathname !== pathname) {
-    const nextIndex = getSectionIndex(pathname)
-    setTransition({
-      pathname,
-      index: nextIndex,
-      animationClass:
-        nextIndex > transition.index
-          ? 'page-slide-from-right'
-          : nextIndex < transition.index
-            ? 'page-slide-from-left'
-            : '',
-    })
-    return null
+  const currentIndex = getSectionIndex(pathname)
+  const previousIndex = previousIndexRef.current
+  previousIndexRef.current = currentIndex
+
+  let animationClass = ''
+  if (previousIndex !== null && previousIndex !== currentIndex) {
+    animationClass =
+      currentIndex > previousIndex ? 'page-slide-from-right' : 'page-slide-from-left'
   }
 
   return (
-    <div key={pathname} className={transition.animationClass}>
+    <div key={pathname} className={animationClass}>
       {children}
     </div>
   )
