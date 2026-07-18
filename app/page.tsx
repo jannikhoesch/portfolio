@@ -1,20 +1,26 @@
-import { BlogPosts } from 'app/components/posts';
-import { Projects } from 'app/components/projects';
-import Link from 'next/link';
+import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Page() {
     return (
         <section>
             <div className="relative mb-8 w-32 h-32">
-                <img
+                <Image
                     src="/picofme.png"
                     alt="Profile Image"
-                    className="profile-image w-full h-full rounded-full"
+                    fill
+                    sizes="128px"
+                    priority
+                    quality={75}
+                    className="profile-image rounded-full object-cover"
                 />
-                <img
+                <Image
                     src="/picofme-hover.png"
                     alt="Profile Hover Image"
-                    className="profile-image-hover w-full h-full rounded-full"
+                    fill
+                    sizes="128px"
+                    quality={75}
+                    className="profile-image-hover rounded-full object-cover"
                 />
             </div>
             <h1 className="mb-8 text-2xl font-semibold tracking-tighter">

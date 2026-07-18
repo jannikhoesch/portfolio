@@ -3,6 +3,11 @@ import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getProjects } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
 import Image from 'next/image'
+import {
+  CONTENT_IMAGE_QUALITY,
+  CONTENT_IMAGE_SIZES,
+  getBlurDataURL,
+} from 'app/lib/image'
 
 export async function generateStaticParams() {
   let posts = getProjects()
@@ -65,6 +70,10 @@ export default async function Blog({ params }) {
     notFound();
   }
 
+  const blurDataURL = post.metadata.image
+    ? await getBlurDataURL(post.metadata.image)
+    : undefined
+
   return (
     <section>
       <script
@@ -97,8 +106,10 @@ export default async function Blog({ params }) {
             fill
             className="object-cover"
             priority
-            sizes="100vw"
-            quality={90}
+            sizes={CONTENT_IMAGE_SIZES}
+            quality={CONTENT_IMAGE_QUALITY}
+            placeholder="blur"
+            blurDataURL={blurDataURL}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
             <h1 className="title font-semibold text-4xl tracking-tighter text-white mb-2">

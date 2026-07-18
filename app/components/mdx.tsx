@@ -3,6 +3,11 @@ import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React from 'react'
+import {
+  CONTENT_IMAGE_QUALITY,
+  CONTENT_IMAGE_SIZES,
+  FALLBACK_BLUR,
+} from 'app/lib/image'
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
@@ -83,15 +88,18 @@ function createHeading(level) {
 }
 
 function RoundedImage(props) {
+  const { alt, src } = props
   return (
     <span className="block relative w-full aspect-video mb-8 rounded-xl overflow-hidden">
       <Image
-        alt={props.alt}
+        src={src}
+        alt={alt}
         fill
         className="object-cover rounded-xl"
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-        quality={85}
-        {...props}
+        sizes={CONTENT_IMAGE_SIZES}
+        quality={CONTENT_IMAGE_QUALITY}
+        placeholder="blur"
+        blurDataURL={FALLBACK_BLUR}
       />
     </span>
   )

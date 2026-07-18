@@ -4,6 +4,11 @@ import { GitHubLink } from 'app/components/github-link'
 import { formatDate, getProjects } from 'app/portfolio/utils'
 import { baseUrl } from 'app/sitemap'
 import Image from 'next/image'
+import {
+  CONTENT_IMAGE_QUALITY,
+  CONTENT_IMAGE_SIZES,
+  getBlurDataURL,
+} from 'app/lib/image'
 
 export async function generateStaticParams() {
   let projects = getProjects()
@@ -66,6 +71,10 @@ export default async function Projects({ params }) {
     notFound();
   }
 
+  const blurDataURL = project.metadata.image
+    ? await getBlurDataURL(project.metadata.image)
+    : undefined
+
   return (
     <section>
       <script
@@ -98,8 +107,10 @@ export default async function Projects({ params }) {
             fill
             className="object-cover"
             priority
-            sizes="100vw"
-            quality={90}
+            sizes={CONTENT_IMAGE_SIZES}
+            quality={CONTENT_IMAGE_QUALITY}
+            placeholder="blur"
+            blurDataURL={blurDataURL}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-8">
             <h1 className="title font-semibold text-4xl tracking-tighter text-white mb-2">

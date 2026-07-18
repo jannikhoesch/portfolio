@@ -1,7 +1,8 @@
 'use client';
 
 import { useChat } from '@ai-sdk/react';
-import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { useEffect } from 'react';
 
 export default function Chat() {
     const { messages, input, setInput, append, setMessages } = useChat();
@@ -42,7 +43,13 @@ export default function Chat() {
                     {messages.map((message, index) => (
                         <div key={index} className={`mb-4 p-2 rounded-lg ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
                             {message.role === 'assistant' && (
-                                <img src="/profile.png" alt="Jannik" className="mb-1 w-12 h-12 rounded-full" />
+                                <Image
+                                    src="/profile.png"
+                                    alt="Jannik"
+                                    width={48}
+                                    height={48}
+                                    className="mb-1 rounded-full"
+                                />
                             )}
                             <div className={`flex items-center gap-2 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                                 <b className="font-semibold">{message.role === 'user' ? 'You' : 'Jannik'}</b>

@@ -1,22 +1,27 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { formatDate, getProjects } from 'app/blog/utils'
+import {
+  CONTENT_IMAGE_QUALITY,
+  CONTENT_IMAGE_SIZES,
+  getBlurDataURL,
+} from 'app/lib/image'
 
-export function BlogPosts() {
-  let allBlogs = getProjects()
+export async function BlogPosts() {
+  const allBlogs = getProjects().sort((a, b) => {
+    if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+      return -1
+    }
+    return 1
+  })
+
+  const blurs = await Promise.all(
+    allBlogs.map((post) => getBlurDataURL(post.metadata.image))
+  )
 
   return (
     <div className="grid gap-12">
-      {allBlogs
-        .sort((a, b) => {
-          if (
-            new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
-          ) {
-            return -1
-          }
-          return 1
-        })
-        .map((post) => (
+      {allBlogs.map((post, index) => (
           <Link
             key={post.slug}
             className="flex flex-col space-y-4 group"
@@ -29,8 +34,11 @@ export function BlogPosts() {
                   alt={post.metadata.title}
                   fill
                   className="object-cover transition-transform duration-200 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  quality={85}
+                  sizes={CONTENT_IMAGE_SIZES}
+                  quality={CONTENT_IMAGE_QUALITY}
+                  priority={index < 2}
+                  placeholder="blur"
+                  blurDataURL={blurs[index]}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
                   <p className="text-neutral-200 text-sm mb-2">
