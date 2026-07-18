@@ -1,21 +1,25 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { POST } from './route'
 
-const streamTextMock = vi.fn()
-const toDataStreamResponseMock = vi.fn()
+const { streamTextMock, toDataStreamResponseMock, gatewayMock } = vi.hoisted(() => ({
+  streamTextMock: vi.fn(),
+  toDataStreamResponseMock: vi.fn(),
+  gatewayMock: vi.fn((model: string) => model),
+}))
 
 vi.mock('ai', () => ({
   streamText: (...args: unknown[]) => streamTextMock(...args),
 }))
 
 vi.mock('@ai-sdk/openai', () => ({
-  openai: (model: string) => model,
+  createOpenAI: () => gatewayMock,
 }))
 
 describe('POST /api/chat', () => {
   beforeEach(() => {
     streamTextMock.mockReset()
     toDataStreamResponseMock.mockReset()
+    gatewayMock.mockClear()
     toDataStreamResponseMock.mockReturnValue(new Response('ok', { status: 200 }))
     streamTextMock.mockReturnValue({
       toDataStreamResponse: toDataStreamResponseMock,
@@ -38,7 +42,8 @@ describe('POST /api/chat', () => {
     expect(toDataStreamResponseMock).toHaveBeenCalledOnce()
 
     const call = streamTextMock.mock.calls[0][0]
-    expect(call.model).toBe('gpt-4.1')
+    expect(call.model).toBe('google/gemini-2.5-flash-lite')
+    expect(gatewayMock).toHaveBeenCalledWith('google/gemini-2.5-flash-lite')
     expect(call.messages[0].role).toBe('system')
     expect(call.messages.at(-1)).toMatchObject({
       role: 'user',
