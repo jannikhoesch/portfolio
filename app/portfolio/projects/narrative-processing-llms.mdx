@@ -1,0 +1,48 @@
+---
+title: 'Narrative Processing in LLMs'
+publishedAt: '2024-05-03'
+summary: 'Bachelor thesis on how BERT layers separate writing style and narrative content'
+image: '/portfolio/narratives-bert/cover-full.png'
+imageAspect: '1024/522'
+imagePosition: 'top'
+---
+
+## The Research Question
+
+Language is one of the defining capabilities of the human brain, and understanding how neural systems process it is a central question in cognitive science. Transformer based large language models now produce and interpret text at scale, but their internal mechanics are still largely opaque.
+
+For my bachelor thesis in Computer Science at Friedrich-Alexander-Universität Erlangen-Nürnberg, I worked with the CCN Group at the Pattern Recognition Lab on a simple but ambitious idea: treat an open source LLM as an inspectable model of language processing. Unlike the living brain, we can read out hidden activations at every layer with arbitrary precision. That makes models like BERT useful for generating hypotheses about how hierarchical neural systems might separate surface form from meaning.
+
+## The Approach
+
+We needed controlled linguistic variation without changing the underlying story. Using ChatGPT with the GPT-4 backend, we generated seven stylistic rewrites for ten Aesop's fables (e.g. adventure tale, children's story, comedy), while keeping the core narrative intact.
+
+Those narratives were fed into BERT. For each of the twelve transformer blocks, we extracted hidden unit activations associated with the CLS token and projected them into two dimensions with multi-dimensional scaling. Cluster structure was quantified with the generalized discrimination value (GDV), so we could compare how strongly representations grouped by narrative identity versus writing style across depth.
+
+![image](/portfolio/narratives-bert/fig2-narrative-mds.png)
+
+The panels above show MDS projections of the CLS token through all twelve transformer blocks, with colors corresponding to the ten different fables.
+
+![image](/portfolio/narratives-bert/fig3-style-mds.png)
+
+The same projections colored by writing style illustrate how surface form and semantic content leave different geometric signatures as depth increases.
+
+## The Findings
+
+The main result was a clear dissociation in time, or rather in depth. Activation patterns clustered according to stylistic variation already in the first transformer block. Narrative content, by contrast, drove stronger separation in blocks four and five. Despite twelve architecturally identical stacked blocks trained on the same corpora, different layers behaved like different processing stages.
+
+![image](/portfolio/narratives-bert/style-gdv.png)
+
+Quantitatively, GDV traces for style peaked early, consistent with the MDS views at block one.
+
+![image](/portfolio/narratives-bert/narrative-gdv.png)
+
+For narrative identity, clustering was most pronounced in the middle layers, with a characteristic trough in GDV around blocks four and five.
+
+That layer-wise specialization is interesting for interpretability: it suggests that probing the right depth matters when you ask what an LLM has encoded. It also resonates with cognitive computational neuroscience, where repeated cortical motifs can support different functions depending on where you look in the hierarchy, without claiming a one-to-one map between BERT blocks and brain areas.
+
+## The Result
+
+The approach is an early step toward using LLMs both to open the black box of modern language models and to inform experiments on human language processing.
+
+Read the paper on [arXiv](https://arxiv.org/abs/2405.02024).

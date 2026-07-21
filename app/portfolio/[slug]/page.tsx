@@ -100,12 +100,25 @@ export default async function Projects({ params }) {
         }}
       />
       {project.metadata.image && (
-        <div className="relative w-full h-96 mb-8 rounded-xl overflow-hidden">
+        <div
+          className={
+            project.metadata.imageAspect === '1024/522'
+              ? 'relative w-full aspect-[1024/522] mb-8 rounded-xl overflow-hidden'
+              : 'relative w-full h-96 mb-8 rounded-xl overflow-hidden'
+          }
+        >
           <Image
             src={project.metadata.image}
             alt={project.metadata.title}
             fill
-            className="object-cover"
+            className={[
+              'object-cover',
+              project.metadata.imagePosition === 'top'
+                ? 'object-top'
+                : project.metadata.imagePosition === 'bottom'
+                  ? 'object-bottom'
+                  : 'object-center',
+            ].join(' ')}
             priority
             sizes={CONTENT_IMAGE_SIZES}
             quality={CONTENT_IMAGE_QUALITY}
@@ -124,7 +137,10 @@ export default async function Projects({ params }) {
                 {project.metadata.summary}
               </p>
               {project.metadata.github && (
-                <GitHubLink href={project.metadata.github} className="mt-1 shrink-0" />
+                <GitHubLink
+                  href={project.metadata.github}
+                  className="mt-1 shrink-0"
+                />
               )}
             </div>
           </div>
