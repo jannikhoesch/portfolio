@@ -6,6 +6,8 @@ type Metadata = {
   publishedAt: string
   summary: string
   image?: string
+  imagePosition?: string
+  imageAspect?: string
   github?: string
 }
 

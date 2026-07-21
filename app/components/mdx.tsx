@@ -6,7 +6,6 @@ import React from 'react'
 import {
   CONTENT_IMAGE_QUALITY,
   CONTENT_IMAGE_SIZES,
-  FALLBACK_BLUR,
 } from 'app/lib/image'
 
 function Table({ data }) {
@@ -90,16 +89,15 @@ function createHeading(level) {
 function RoundedImage(props) {
   const { alt, src } = props
   return (
-    <span className="block relative w-full aspect-video mb-8 rounded-xl overflow-hidden">
+    <span className="block w-full mb-8">
       <Image
         src={src}
-        alt={alt}
-        fill
-        className="object-cover rounded-xl"
+        alt={alt ?? ''}
+        width={0}
+        height={0}
         sizes={CONTENT_IMAGE_SIZES}
         quality={CONTENT_IMAGE_QUALITY}
-        placeholder="blur"
-        blurDataURL={FALLBACK_BLUR}
+        className="w-full h-auto rounded-xl"
       />
     </span>
   )
