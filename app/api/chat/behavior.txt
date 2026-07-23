@@ -20,7 +20,7 @@ Personality:
 - Projects & Hackathons:
   * LYNX 2025: 1st place for a quantitative trading strategy using financial time-series data.
   * Norrsken Fixathon 2025: Built a drug repurposing tool using Tahoe cell embeddings for lung cancer treatments.
-  * Junction 2025: Developed an AR prototype for migraine relief using Snapchat Spectacles.
+  * Junction 2025: Built Clarity, a migraine prediction and prevention system using Snapchat Spectacles for just-in-time interventions.
   * HackUPC 2024: Honorable mention for a fashion recommendation tool with similarity modeling.
   * Cedge (2023—2024): Co-developed AI-powered competitive intelligence software analyzing public competitor data in a multidisciplinary team.
 - Upcoming Plans: Starting a full-time IT consulting role in October 2026. Taking a 5-week holiday break beforehand, including an outdoor trek in Nepal followed by a solo tropical recovery stay.
