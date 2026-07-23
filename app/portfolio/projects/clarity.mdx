@@ -1,0 +1,53 @@
+---
+title: 'Clarity'
+publishedAt: '2025-11-16'
+summary: 'Migraine prevention using smart glasses'
+image: '/portfolio/clarity/clarity_cover.png'
+github: 'https://github.com/jannikhoesch/spectacular-detection'
+---
+
+## The Challenge
+
+In November 2025, Junction brought thousands of hackers to Helsinki under the theme *blurred realities*. We joined the migraine challenge: use biometric signals and digital behavior to forecast episodes before they hit, shift care from reactive to predictive, and keep the experience simple enough to run in the background.
+
+Migraine affects over a billion people and remains one of the leading causes of short-term disability worldwide. Many patients still wait until symptoms are unbearable before treating an attack. The brief asked for a prototype that predicts onset from signals like HRV, sleep, screen time, or other passive and contextual data, and that empowers users with insight into their own trigger patterns.
+
+We formed a team of five: Moritz, Froukje, Gaia, Dario, and myself. Over three days we built **Clarity**, a holistic system that pairs smartphone and wearable health data with smart spectacles for just-in-time interventions.
+
+![image](/portfolio/clarity/clarity_team.png)
+
+## Clarity
+
+Today's migraine solutions are mostly reactive: people wait for the pain, then reach for medication. By the time an episode begins, treatment is often already less effective. Clarity flips that timeline. We combine long-term sensitivity prediction with real-time trigger monitoring, then deliver contextual interventions through the spectacles before symptoms become debilitating.
+
+After a one-time sign-up to connect health data, the system is designed to run silently until elevated risk is detected. At that point the app highlights contributing triggers and suggests immediate strategies, while the glasses guide interventions that neutralize the specific trigger in context.
+
+## Predictive Detection
+
+Clarity's detection layer has two complementary parts: a background sensitivity model and continuous trigger monitoring on the spectacles.
+
+**Background classifier**: Trained on biowearable health data, environmental signals, and stress indicators, the classifier estimates each user's daily migraine sensitivity from past measurements. When sensitivity rises, the app notifies the user and surfaces likely contributors without requiring constant manual logging.
+
+**Perceived brightness**: Visual overstimulation is one of the most common migraine triggers, yet few wearables measure the light a person actually sees. Using the spectacle camera feed, we compute perceived brightness in real time with WCAG Relative Luminance coefficients so the metric reflects human visual sensitivity rather than raw pixel averages. We oversample from the foveal region so the reading aligns with where the user is looking.
+
+**Neck posture**: Prolonged downward head tilt during phone or laptop use builds tension that can contribute to onset. The glasses track head pitch and flag when posture stays below a healthy threshold for too long, catching strain before symptoms appear.
+
+In the demo, an alert fires whenever either trigger persists for a set duration. In a real deployment, these signals would combine with the background classifier so alerts only fire when both internal sensitivity and accumulated external triggers cross personalized thresholds.
+
+## Proactive Intervention
+
+Once elevated risk is detected, the spectacles guide targeted, context-aware interventions meant to neutralize the trigger before pain sets in.
+
+![image](/portfolio/clarity/clarity_glasses.png)
+
+**Visual relief**: If excessive perceived brightness is the culprit, a single tap activates visual relief mode: dimming the environment, reducing blue light exposure, and lowering contrast to ease strain on the visual system.
+
+**Grounding technique**: Users can start a 5-4-3-2-1 sensory grounding exercise to shift attention away from escalating stress. Through hand-tracking they point out objects they see; for immersion we also surface AI-generated descriptions of those objects in the lenses.
+
+**Guided meditation**: A short immersive session helps calm the nervous system against stress-related triggers. Guidance is delivered with an AI-generated voice powered by ElevenLabs. And while choosing the deepest possible voice may not be scientifically proven to reduce stress, we firmly believe it helps.
+
+![image](/portfolio/clarity/clarity_hall.png)
+
+Clarity reframes migraine care as continuous prevention rather than crisis response: wearable physiology, real-time environmental awareness, and lightweight interventions that meet people before the pain begins. As smart glasses become part of daily life, systems like this show how AI-driven, human-centered design can meaningfully improve quality of life for millions.
+
+
