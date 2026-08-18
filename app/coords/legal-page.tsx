@@ -55,11 +55,6 @@ export function LegalPage({
         </div>
       </header>
       <article lang={lang}>{lang === 'de' ? de : en}</article>
-      <p className="mt-16 text-xs text-neutral-600">
-        {lang === 'de'
-          ? 'Dies ist keine Rechtsberatung.'
-          : 'This is not legal advice.'}
-      </p>
     </div>
   )
 }
