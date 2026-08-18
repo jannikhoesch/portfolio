@@ -38,6 +38,10 @@ export function Navbar() {
     }
   }, [pathname])
 
+  if (pathname?.startsWith('/coords')) {
+    return null
+  }
+
   return (
     <aside className="-ml-[8px] mb-16 tracking-tight">
       <div className="lg:sticky lg:top-20">
