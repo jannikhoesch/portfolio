@@ -81,6 +81,13 @@ export function TermsEn() {
           someone else’s private information without permission. We may remove
           content or accounts that break these rules.
         </p>
+        <p>
+          There is a zero-tolerance policy for objectionable content or abusive
+          users. You may report any post or block any user directly in the app
+          (via the menu on the post or profile). We review reports and, where
+          these Terms are violated, remove the content or account within 24
+          hours.
+        </p>
       </LegalSection>
 
       <LegalSection title="Location and visibility">
@@ -242,6 +249,13 @@ export function TermsDe() {
           Belästigendes und keine privaten Informationen anderer ohne Erlaubnis.
           Wir können Inhalte oder Konten entfernen, die gegen diese Regeln
           verstoßen.
+        </p>
+        <p>
+          Für anstößige Inhalte und missbräuchliches Verhalten gilt
+          Null-Toleranz. Du kannst jeden Beitrag melden oder jede Person direkt
+          in der App blockieren (über das Menü am Beitrag oder Profil). Wir
+          prüfen Meldungen und entfernen bei einem Verstoß gegen diese
+          Bedingungen den Inhalt oder das Konto innerhalb von 24 Stunden.
         </p>
       </LegalSection>
 
