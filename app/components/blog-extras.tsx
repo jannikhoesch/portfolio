@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react'
+
 type ScheduleRow = [string, string]
 
 function parseProp<T>(value: T | string): T {
@@ -17,36 +19,26 @@ export function DailySchedule({
   const scheduleRows = parseProp<ScheduleRow[]>(rows)
 
   return (
-    <div className="not-prose my-8">
-      <p className="text-sm uppercase tracking-[0.12em] text-neutral-500 dark:text-neutral-400 mb-3">
+    <div className="not-prose my-10">
+      <p className="text-xs uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400 mb-2">
         Daily Schedule
       </p>
-      <h3 className="text-lg font-medium tracking-tight mb-4">{title}</h3>
-      <div className="overflow-x-auto rounded-lg border border-neutral-200 dark:border-neutral-800">
-        <table className="w-full text-sm whitespace-normal">
-          <thead>
-            <tr className="border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/60 text-left">
-              <th className="px-4 py-2.5 font-medium w-[40%]">Time</th>
-              <th className="px-4 py-2.5 font-medium">Activity</th>
-            </tr>
-          </thead>
-          <tbody>
-            {scheduleRows.map(([time, activity]) => (
-              <tr
-                key={`${time}-${activity}`}
-                className="border-b border-neutral-100 dark:border-neutral-800 last:border-0"
-              >
-                <td className="px-4 py-2.5 tabular-nums text-neutral-600 dark:text-neutral-400 align-top">
-                  {time}
-                </td>
-                <td className="px-4 py-2.5 text-neutral-800 dark:text-neutral-200">
-                  {activity}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <h3 className="text-xl font-medium tracking-tight mb-6">{title}</h3>
+      <ol className="border-t border-neutral-200 dark:border-neutral-800">
+        {scheduleRows.map(([time, activity]) => (
+          <li
+            key={`${time}-${activity}`}
+            className="grid grid-cols-[7.5rem_1fr] gap-4 sm:gap-6 py-3 border-b border-neutral-200 dark:border-neutral-800"
+          >
+            <span className="font-mono text-[13px] tabular-nums text-neutral-500 dark:text-neutral-400 leading-6">
+              {time}
+            </span>
+            <span className="text-[15px] text-neutral-800 dark:text-neutral-200 leading-6">
+              {activity}
+            </span>
+          </li>
+        ))}
+      </ol>
     </div>
   )
 }
@@ -59,32 +51,139 @@ type MoodDay = {
 
 export function MoodBoard({ days }: { days: MoodDay[] | string }) {
   const moodDays = parseProp<MoodDay[]>(days)
+  const width = 360
+  const height = 240
+  const padding = { top: 28, right: 18, bottom: 40, left: 40 }
+  const plotWidth = width - padding.left - padding.right
+  const plotHeight = height - padding.top - padding.bottom
+  const minY = 0
+  const maxY = 10
+  const annotated = moodDays.filter((day) => day.note)
+
+  const points = moodDays.map((day, index) => {
+    const x =
+      padding.left +
+      (moodDays.length === 1
+        ? plotWidth / 2
+        : (index / (moodDays.length - 1)) * plotWidth)
+    const y =
+      padding.top + ((maxY - day.score) / (maxY - minY)) * plotHeight
+    return { ...day, x, y }
+  })
+
+  const polyline = points.map((point) => `${point.x},${point.y}`).join(' ')
+  const yTicks = [0, 2, 4, 6, 8, 10]
 
   return (
-    <div className="not-prose my-8">
-      <div className="space-y-3">
-        {moodDays.map((day) => (
-          <div key={day.label} className="grid grid-cols-[4.5rem_1fr_auto] gap-3 items-center">
-            <span className="text-sm text-neutral-600 dark:text-neutral-400">
-              {day.label}
-            </span>
-            <div className="h-2 rounded-full bg-neutral-100 dark:bg-neutral-900 overflow-hidden">
-              <div
-                className="h-full rounded-full bg-neutral-800 dark:bg-neutral-200"
-                style={{ width: `${Math.min(Math.max(day.score, 0), 10) * 10}%` }}
+    <div className="not-prose my-8 max-w-md mx-auto">
+      <p className="text-sm font-medium tracking-tight mb-3">Mood Board</p>
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        className="w-full h-auto text-neutral-800 dark:text-neutral-200"
+        role="img"
+        aria-label="Mood over the seven retreat days"
+      >
+        {yTicks.map((tick) => {
+          const y =
+            padding.top + ((maxY - tick) / (maxY - minY)) * plotHeight
+          return (
+            <g key={tick}>
+              <line
+                x1={padding.left}
+                y1={y}
+                x2={width - padding.right}
+                y2={y}
+                stroke="currentColor"
+                strokeOpacity="0.1"
               />
-            </div>
-            <span className="text-sm tabular-nums text-neutral-700 dark:text-neutral-300 w-14 text-right">
-              {day.score}/10
-            </span>
-            {day.note ? (
-              <span className="col-span-3 -mt-1 text-xs text-neutral-500 dark:text-neutral-400 pl-[4.5rem]">
-                {day.note}
-              </span>
-            ) : null}
-          </div>
+              <text
+                x={padding.left - 8}
+                y={y + 3}
+                textAnchor="end"
+                className="fill-neutral-500 dark:fill-neutral-400"
+                fontSize="10"
+              >
+                {tick}
+              </text>
+            </g>
+          )
+        })}
+
+        <line
+          x1={padding.left}
+          y1={padding.top}
+          x2={padding.left}
+          y2={height - padding.bottom}
+          stroke="currentColor"
+          strokeOpacity="0.35"
+        />
+        <line
+          x1={padding.left}
+          y1={height - padding.bottom}
+          x2={width - padding.right}
+          y2={height - padding.bottom}
+          stroke="currentColor"
+          strokeOpacity="0.35"
+        />
+
+        <polyline
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          points={polyline}
+        />
+
+        {points.map((point) => (
+          <g key={point.label}>
+            <circle
+              cx={point.x}
+              cy={point.y}
+              r="4"
+              className="fill-white dark:fill-black"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+            <text
+              x={point.x}
+              y={height - padding.bottom + 16}
+              textAnchor="middle"
+              className="fill-neutral-500 dark:fill-neutral-400"
+              fontSize="10"
+            >
+              {point.label.replace('Day ', '')}
+            </text>
+          </g>
         ))}
-      </div>
+
+        <text
+          x={12}
+          y={height / 2}
+          textAnchor="middle"
+          transform={`rotate(-90 12 ${height / 2})`}
+          className="fill-neutral-500 dark:fill-neutral-400"
+          fontSize="10"
+        >
+          Mood
+        </text>
+        <text
+          x={(padding.left + width - padding.right) / 2}
+          y={height - 6}
+          textAnchor="middle"
+          className="fill-neutral-500 dark:fill-neutral-400"
+          fontSize="10"
+        >
+          Days
+        </text>
+      </svg>
+      {annotated.length > 0 ? (
+        <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+          {annotated
+            .map((day) => `${day.label}: ${day.note}`)
+            .join(' · ')}
+        </p>
+      ) : null}
     </div>
   )
 }
@@ -94,18 +193,29 @@ type Book = {
   rating: number
 }
 
-export function ReadingList({ books }: { books: Book[] | string }) {
+export function ReadingList({
+  title = 'Reading List',
+  books,
+}: {
+  title?: string
+  books: Book[] | string
+}) {
   const readingList = parseProp<Book[]>(books)
 
   return (
-    <div className="not-prose my-8">
+    <div className="not-prose my-8 text-left max-w-md mx-auto">
+      <p className="text-sm font-medium tracking-tight mb-4 text-center">
+        {title}
+      </p>
       <ul className="space-y-3">
         {readingList.map((book) => (
           <li
             key={book.title}
             className="flex items-baseline justify-between gap-4 border-b border-neutral-100 dark:border-neutral-800 pb-3 last:border-0"
           >
-            <span className="text-neutral-800 dark:text-neutral-200">{book.title}</span>
+            <span className="text-neutral-800 dark:text-neutral-200">
+              {book.title}
+            </span>
             <span className="shrink-0 tabular-nums text-sm text-neutral-600 dark:text-neutral-400">
               {book.rating}/10
             </span>
@@ -124,9 +234,27 @@ export function RetreatStat({
   value: string
 }) {
   return (
-    <div className="not-prose my-8 rounded-lg border border-neutral-200 dark:border-neutral-800 px-5 py-4">
-      <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">{label}</p>
-      <p className="text-2xl font-medium tracking-tight tabular-nums">{value}</p>
+    <div className="not-prose my-8">
+      <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">
+        {label}
+      </p>
+      <p className="text-3xl font-medium tracking-tight tabular-nums">{value}</p>
     </div>
+  )
+}
+
+export function ClosingStatement({ children }: { children: ReactNode }) {
+  return (
+    <p className="not-prose my-10 text-center text-lg sm:text-xl italic text-neutral-700 dark:text-neutral-300 text-balance">
+      {children}
+    </p>
+  )
+}
+
+export function RetreatDebrief({ children }: { children: ReactNode }) {
+  return (
+    <section className="not-prose mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800 text-center">
+      {children}
+    </section>
   )
 }

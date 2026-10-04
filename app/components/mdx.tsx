@@ -8,9 +8,11 @@ import {
   CONTENT_IMAGE_SIZES,
 } from 'app/lib/image'
 import {
+  ClosingStatement,
   DailySchedule,
   MoodBoard,
   ReadingList,
+  RetreatDebrief,
   RetreatStat,
 } from 'app/components/blog-extras'
 
@@ -124,6 +126,8 @@ let components = {
   MoodBoard,
   ReadingList,
   RetreatStat,
+  ClosingStatement,
+  RetreatDebrief,
 }
 
 export function CustomMDX(props) {

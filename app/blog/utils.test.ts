@@ -30,12 +30,12 @@ describe('getProjects', () => {
   it('keeps unlisted posts available by slug but out of the public list', () => {
     const allPosts = getProjects()
     const listedPosts = getListedProjects()
-    const unlisted = allPosts.find((post) => post.slug === 'nilambe-7-days')
+    const unlisted = allPosts.find((post) => post.slug === 'silent-retreat')
 
     expect(unlisted).toBeTruthy()
     expect(unlisted?.metadata.listed).toBe(false)
     expect(isListedPost(unlisted!)).toBe(false)
-    expect(listedPosts.some((post) => post.slug === 'nilambe-7-days')).toBe(
+    expect(listedPosts.some((post) => post.slug === 'silent-retreat')).toBe(
       false
     )
     expect(listedPosts.length).toBe(allPosts.length - 1)
