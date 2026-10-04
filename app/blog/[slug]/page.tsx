@@ -32,14 +32,26 @@ export async function generateMetadata({ params }) {
     publishedAt: publishedTime,
     summary: description,
     image,
+    listed,
   } = post.metadata
   let ogImage = image
     ? image
     : `${baseUrl}/og?title=${encodeURIComponent(title)}`
+  const isUnlisted = listed === false
 
   return {
     title,
     description,
+    robots: isUnlisted
+      ? {
+          index: false,
+          follow: false,
+          googleBot: {
+            index: false,
+            follow: false,
+          },
+        }
+      : undefined,
     openGraph: {
       title,
       description,
@@ -73,32 +85,35 @@ export default async function Blog({ params }) {
   const blurDataURL = post.metadata.image
     ? await getBlurDataURL(post.metadata.image)
     : undefined
+  const isUnlisted = post.metadata.listed === false
 
   return (
     <section>
-      <script
-        type="application/ld+json"
-        suppressHydrationWarning
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'BlogPosting',
-            headline: post.metadata.title,
-            datePublished: post.metadata.publishedAt,
-            dateModified: post.metadata.publishedAt,
-            description: post.metadata.summary,
-            image: post.metadata.image
-              ? `${baseUrl}${post.metadata.image}`
-              : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-            url: `${baseUrl}/blog/${post.slug}`,
-            author: {
-              '@type': 'Person',
-              name: 'My Portfolio',
-            },
-          }),
-        }}
-      />
-      {post.metadata.image && (
+      {!isUnlisted && (
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
+              headline: post.metadata.title,
+              datePublished: post.metadata.publishedAt,
+              dateModified: post.metadata.publishedAt,
+              description: post.metadata.summary,
+              image: post.metadata.image
+                ? `${baseUrl}${post.metadata.image}`
+                : `/og?title=${encodeURIComponent(post.metadata.title)}`,
+              url: `${baseUrl}/blog/${post.slug}`,
+              author: {
+                '@type': 'Person',
+                name: 'Jannik Hösch',
+              },
+            }),
+          }}
+        />
+      )}
+      {post.metadata.image ? (
         <div className="relative w-full h-96 mb-8 rounded-xl overflow-hidden">
           <Image
             src={post.metadata.image}
@@ -123,6 +138,18 @@ export default async function Blog({ params }) {
             </p>
           </div>
         </div>
+      ) : (
+        <header className="mb-8">
+          <h1 className="title font-semibold text-4xl tracking-tighter mb-2">
+            {post.metadata.title}
+          </h1>
+          <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
+            {formatDate(post.metadata.publishedAt)}
+          </p>
+          <p className="text-neutral-700 dark:text-neutral-300">
+            {post.metadata.summary}
+          </p>
+        </header>
       )}
       <article className="prose">
         <CustomMDX source={post.content} />

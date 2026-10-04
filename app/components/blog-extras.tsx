@@ -1,0 +1,260 @@
+import type { ReactNode } from 'react'
+
+type ScheduleRow = [string, string]
+
+function parseProp<T>(value: T | string): T {
+  if (typeof value === 'string') {
+    return JSON.parse(value) as T
+  }
+  return value
+}
+
+export function DailySchedule({
+  title = 'The Way to Practice Dhamma',
+  rows,
+}: {
+  title?: string
+  rows: ScheduleRow[] | string
+}) {
+  const scheduleRows = parseProp<ScheduleRow[]>(rows)
+
+  return (
+    <div className="not-prose my-10">
+      <p className="text-xs uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400 mb-2">
+        Daily Schedule
+      </p>
+      <h3 className="text-xl font-medium tracking-tight mb-6">{title}</h3>
+      <ol className="border-t border-neutral-200 dark:border-neutral-800">
+        {scheduleRows.map(([time, activity]) => (
+          <li
+            key={`${time}-${activity}`}
+            className="grid grid-cols-[7.5rem_1fr] gap-4 sm:gap-6 py-3 border-b border-neutral-200 dark:border-neutral-800"
+          >
+            <span className="font-mono text-[13px] tabular-nums text-neutral-500 dark:text-neutral-400 leading-6">
+              {time}
+            </span>
+            <span className="text-[15px] text-neutral-800 dark:text-neutral-200 leading-6">
+              {activity}
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )
+}
+
+type MoodDay = {
+  label: string
+  score: number
+  note?: string
+}
+
+export function MoodBoard({ days }: { days: MoodDay[] | string }) {
+  const moodDays = parseProp<MoodDay[]>(days)
+  const width = 360
+  const height = 240
+  const padding = { top: 28, right: 18, bottom: 40, left: 40 }
+  const plotWidth = width - padding.left - padding.right
+  const plotHeight = height - padding.top - padding.bottom
+  const minY = 0
+  const maxY = 10
+  const annotated = moodDays.filter((day) => day.note)
+
+  const points = moodDays.map((day, index) => {
+    const x =
+      padding.left +
+      (moodDays.length === 1
+        ? plotWidth / 2
+        : (index / (moodDays.length - 1)) * plotWidth)
+    const y =
+      padding.top + ((maxY - day.score) / (maxY - minY)) * plotHeight
+    return { ...day, x, y }
+  })
+
+  const polyline = points.map((point) => `${point.x},${point.y}`).join(' ')
+  const yTicks = [0, 2, 4, 6, 8, 10]
+
+  return (
+    <div className="not-prose my-8 max-w-md mx-auto">
+      <p className="text-sm font-medium tracking-tight mb-3">Mood Board</p>
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        className="w-full h-auto text-neutral-800 dark:text-neutral-200"
+        role="img"
+        aria-label="Mood over the seven retreat days"
+      >
+        {yTicks.map((tick) => {
+          const y =
+            padding.top + ((maxY - tick) / (maxY - minY)) * plotHeight
+          return (
+            <g key={tick}>
+              <line
+                x1={padding.left}
+                y1={y}
+                x2={width - padding.right}
+                y2={y}
+                stroke="currentColor"
+                strokeOpacity="0.1"
+              />
+              <text
+                x={padding.left - 8}
+                y={y + 3}
+                textAnchor="end"
+                className="fill-neutral-500 dark:fill-neutral-400"
+                fontSize="10"
+              >
+                {tick}
+              </text>
+            </g>
+          )
+        })}
+
+        <line
+          x1={padding.left}
+          y1={padding.top}
+          x2={padding.left}
+          y2={height - padding.bottom}
+          stroke="currentColor"
+          strokeOpacity="0.35"
+        />
+        <line
+          x1={padding.left}
+          y1={height - padding.bottom}
+          x2={width - padding.right}
+          y2={height - padding.bottom}
+          stroke="currentColor"
+          strokeOpacity="0.35"
+        />
+
+        <polyline
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          points={polyline}
+        />
+
+        {points.map((point) => (
+          <g key={point.label}>
+            <circle
+              cx={point.x}
+              cy={point.y}
+              r="4"
+              className="fill-white dark:fill-black"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+            <text
+              x={point.x}
+              y={height - padding.bottom + 16}
+              textAnchor="middle"
+              className="fill-neutral-500 dark:fill-neutral-400"
+              fontSize="10"
+            >
+              {point.label.replace('Day ', '')}
+            </text>
+          </g>
+        ))}
+
+        <text
+          x={12}
+          y={height / 2}
+          textAnchor="middle"
+          transform={`rotate(-90 12 ${height / 2})`}
+          className="fill-neutral-500 dark:fill-neutral-400"
+          fontSize="10"
+        >
+          Mood
+        </text>
+        <text
+          x={(padding.left + width - padding.right) / 2}
+          y={height - 6}
+          textAnchor="middle"
+          className="fill-neutral-500 dark:fill-neutral-400"
+          fontSize="10"
+        >
+          Days
+        </text>
+      </svg>
+      {annotated.length > 0 ? (
+        <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
+          {annotated
+            .map((day) => `${day.label}: ${day.note}`)
+            .join(' · ')}
+        </p>
+      ) : null}
+    </div>
+  )
+}
+
+type Book = {
+  title: string
+  rating: number
+}
+
+export function ReadingList({
+  title = 'Reading List',
+  books,
+}: {
+  title?: string
+  books: Book[] | string
+}) {
+  const readingList = parseProp<Book[]>(books)
+
+  return (
+    <div className="not-prose my-8 text-left max-w-md mx-auto">
+      <p className="text-sm font-medium tracking-tight mb-4 text-center">
+        {title}
+      </p>
+      <ul className="space-y-3">
+        {readingList.map((book) => (
+          <li
+            key={book.title}
+            className="flex items-baseline justify-between gap-4 border-b border-neutral-100 dark:border-neutral-800 pb-3 last:border-0"
+          >
+            <span className="text-neutral-800 dark:text-neutral-200">
+              {book.title}
+            </span>
+            <span className="shrink-0 tabular-nums text-sm text-neutral-600 dark:text-neutral-400">
+              {book.rating}/10
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export function RetreatStat({
+  label,
+  value,
+}: {
+  label: string
+  value: string
+}) {
+  return (
+    <div className="not-prose my-8">
+      <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">
+        {label}
+      </p>
+      <p className="text-3xl font-medium tracking-tight tabular-nums">{value}</p>
+    </div>
+  )
+}
+
+export function ClosingStatement({ text }: { text: string }) {
+  return (
+    <p className="not-prose my-10 text-center text-lg sm:text-xl italic text-neutral-700 dark:text-neutral-300 text-balance">
+      {text}
+    </p>
+  )
+}
+
+export function RetreatDebrief({ children }: { children: ReactNode }) {
+  return (
+    <section className="not-prose mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800 text-center">
+      {children}
+    </section>
+  )
+}

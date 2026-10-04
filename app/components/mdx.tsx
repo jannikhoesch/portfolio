@@ -7,6 +7,14 @@ import {
   CONTENT_IMAGE_QUALITY,
   CONTENT_IMAGE_SIZES,
 } from 'app/lib/image'
+import {
+  ClosingStatement,
+  DailySchedule,
+  MoodBoard,
+  ReadingList,
+  RetreatDebrief,
+  RetreatStat,
+} from 'app/components/blog-extras'
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
@@ -114,6 +122,12 @@ let components = {
   a: CustomLink,
   code: Code,
   Table,
+  DailySchedule,
+  MoodBoard,
+  ReadingList,
+  RetreatStat,
+  ClosingStatement,
+  RetreatDebrief,
 }
 
 export function CustomMDX(props) {
