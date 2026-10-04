@@ -10,20 +10,17 @@ function parseProp<T>(value: T | string): T {
 }
 
 export function DailySchedule({
-  title = 'The Way to Practice Dhamma',
   rows,
 }: {
-  title?: string
   rows: ScheduleRow[] | string
 }) {
   const scheduleRows = parseProp<ScheduleRow[]>(rows)
 
   return (
     <div className="not-prose my-10">
-      <p className="text-xs uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400 mb-2">
+      <p className="text-xs uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400 mb-5">
         Daily Schedule
       </p>
-      <h3 className="text-xl font-medium tracking-tight mb-6">{title}</h3>
       <ol className="border-t border-neutral-200 dark:border-neutral-800">
         {scheduleRows.map(([time, activity]) => (
           <li
@@ -46,19 +43,17 @@ export function DailySchedule({
 type MoodDay = {
   label: string
   score: number
-  note?: string
 }
 
 export function MoodBoard({ days }: { days: MoodDay[] | string }) {
   const moodDays = parseProp<MoodDay[]>(days)
   const width = 360
-  const height = 240
-  const padding = { top: 28, right: 18, bottom: 40, left: 40 }
+  const height = 220
+  const padding = { top: 16, right: 18, bottom: 40, left: 40 }
   const plotWidth = width - padding.left - padding.right
   const plotHeight = height - padding.top - padding.bottom
   const minY = 0
   const maxY = 10
-  const annotated = moodDays.filter((day) => day.note)
 
   const points = moodDays.map((day, index) => {
     const x =
@@ -177,13 +172,6 @@ export function MoodBoard({ days }: { days: MoodDay[] | string }) {
           Days
         </text>
       </svg>
-      {annotated.length > 0 ? (
-        <p className="mt-2 text-xs text-neutral-500 dark:text-neutral-400">
-          {annotated
-            .map((day) => `${day.label}: ${day.note}`)
-            .join(' · ')}
-        </p>
-      ) : null}
     </div>
   )
 }
@@ -226,20 +214,85 @@ export function ReadingList({
   )
 }
 
-export function RetreatStat({
-  label,
-  value,
+function TallyGroup({ marks }: { marks: number }) {
+  const width = 28
+  const height = 32
+  const lines = Math.min(marks, 4)
+
+  return (
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      className="w-7 h-8 text-neutral-800 dark:text-neutral-200"
+      aria-hidden="true"
+    >
+      {Array.from({ length: lines }).map((_, index) => {
+        const x = 6 + index * 5
+        return (
+          <line
+            key={index}
+            x1={x}
+            y1={4}
+            x2={x}
+            y2={28}
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+          />
+        )
+      })}
+      {marks >= 5 ? (
+        <line
+          x1={3}
+          y1={24}
+          x2={25}
+          y2={8}
+          stroke="currentColor"
+          strokeWidth="1.75"
+          strokeLinecap="round"
+        />
+      ) : null}
+    </svg>
+  )
+}
+
+export function LeechTally({
+  label = 'Final leech counter',
+  count,
 }: {
-  label: string
-  value: string
+  label?: string
+  count: number | string
 }) {
+  const total = typeof count === 'string' ? Number(count) : count
+  const groups: number[] = []
+  let remaining = total
+
+  while (remaining > 0) {
+    groups.push(Math.min(remaining, 5))
+    remaining -= 5
+  }
+
   return (
     <div className="not-prose my-8">
-      <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-1">
+      <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-3">
         {label}
       </p>
-      <p className="text-3xl font-medium tracking-tight tabular-nums">{value}</p>
+      <div
+        className="inline-flex flex-wrap items-end justify-center gap-2"
+        aria-label={`${total} leeches`}
+      >
+        {groups.map((marks, index) => (
+          <TallyGroup key={`${index}-${marks}`} marks={marks} />
+        ))}
+      </div>
     </div>
+  )
+}
+
+export function PhotoCaption({ text }: { text: string }) {
+  return (
+    <p className="not-prose text-sm tracking-tight text-neutral-400 dark:text-neutral-500 -mt-5 mb-8">
+      {text}
+    </p>
   )
 }
 
