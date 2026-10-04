@@ -10,10 +10,10 @@ import {
 import {
   ClosingStatement,
   DailySchedule,
+  LeechTally,
   MoodBoard,
   ReadingList,
   RetreatDebrief,
-  RetreatStat,
 } from 'app/components/blog-extras'
 
 function Table({ data }) {
@@ -125,7 +125,7 @@ let components = {
   DailySchedule,
   MoodBoard,
   ReadingList,
-  RetreatStat,
+  LeechTally,
   ClosingStatement,
   RetreatDebrief,
 }
