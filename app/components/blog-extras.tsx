@@ -245,9 +245,9 @@ export function RetreatStat({
 
 export function ClosingStatement({ children }: { children: ReactNode }) {
   return (
-    <p className="not-prose my-10 text-center text-lg sm:text-xl italic text-neutral-700 dark:text-neutral-300 text-balance">
+    <div className="not-prose my-10 text-center text-lg sm:text-xl italic text-neutral-700 dark:text-neutral-300 text-balance">
       {children}
-    </p>
+    </div>
   )
 }
 
