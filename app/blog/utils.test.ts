@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { formatDate, getProjects } from './utils'
+import {
+  formatDate,
+  getListedProjects,
+  getProjects,
+  isListedPost,
+} from './utils'
 
 describe('formatDate', () => {
   it('formats a date without the relative suffix', () => {
@@ -20,5 +25,19 @@ describe('getProjects', () => {
       expect(post.metadata.summary).toBeTruthy()
       expect(post.content.trim().length).toBeGreaterThan(0)
     }
+  })
+
+  it('keeps unlisted posts available by slug but out of the public list', () => {
+    const allPosts = getProjects()
+    const listedPosts = getListedProjects()
+    const unlisted = allPosts.find((post) => post.slug === 'nilambe-7-days')
+
+    expect(unlisted).toBeTruthy()
+    expect(unlisted?.metadata.listed).toBe(false)
+    expect(isListedPost(unlisted!)).toBe(false)
+    expect(listedPosts.some((post) => post.slug === 'nilambe-7-days')).toBe(
+      false
+    )
+    expect(listedPosts.length).toBe(allPosts.length - 1)
   })
 })

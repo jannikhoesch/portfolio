@@ -137,11 +137,22 @@ input[type='email'] {
   appearance: none;
 }
 
+.prose blockquote {
+  @apply my-6 border-l-2 border-neutral-300 dark:border-neutral-700 pl-4 italic text-neutral-700 dark:text-neutral-300;
+}
+
 table {
   display: block;
   max-width: fit-content;
   overflow-x: auto;
   white-space: nowrap;
+}
+
+.not-prose table {
+  display: table;
+  max-width: none;
+  overflow-x: visible;
+  white-space: normal;
 }
 
 .title {

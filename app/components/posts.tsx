@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { formatDate, getProjects } from 'app/blog/utils'
+import { formatDate, getListedProjects } from 'app/blog/utils'
 import {
   CONTENT_IMAGE_QUALITY,
   CONTENT_IMAGE_SIZES,
@@ -8,7 +8,7 @@ import {
 } from 'app/lib/image'
 
 export async function BlogPosts() {
-  const allBlogs = getProjects().sort((a, b) => {
+  const allBlogs = getListedProjects().sort((a, b) => {
     if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
       return -1
     }

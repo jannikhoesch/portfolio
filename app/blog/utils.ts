@@ -6,6 +6,13 @@ type Metadata = {
   publishedAt: string
   summary: string
   image?: string
+  listed?: boolean
+}
+
+type BlogPost = {
+  metadata: Metadata
+  slug: string
+  content: string
 }
 
 function parseFrontmatter(fileContent: string) {
@@ -18,9 +25,17 @@ function parseFrontmatter(fileContent: string) {
 
   frontMatterLines.forEach((line) => {
     let [key, ...valueArr] = line.split(': ')
-    let value = valueArr.join(': ').trim()
-    value = value.replace(/^['"](.*)['"]$/, '$1') // Remove quotes
-    metadata[key.trim() as keyof Metadata] = value
+    let rawValue = valueArr.join(': ').trim()
+    rawValue = rawValue.replace(/^['"](.*)['"]$/, '$1') // Remove quotes
+    const parsedKey = key.trim() as keyof Metadata
+
+    if (rawValue === 'true' || rawValue === 'false') {
+      ;(metadata as Record<string, string | boolean>)[parsedKey] =
+        rawValue === 'true'
+      return
+    }
+
+    ;(metadata as Record<string, string | boolean>)[parsedKey] = rawValue
   })
 
   return { metadata: metadata as Metadata, content }
@@ -35,7 +50,7 @@ function readMDXFile(filePath) {
   return parseFrontmatter(rawContent)
 }
 
-function getMDXData(dir) {
+function getMDXData(dir): BlogPost[] {
   let mdxFiles = getMDXFiles(dir)
   return mdxFiles.map((file) => {
     let { metadata, content } = readMDXFile(path.join(dir, file))
@@ -51,6 +66,14 @@ function getMDXData(dir) {
 
 export function getProjects() {
   return getMDXData(path.join(process.cwd(), 'app', 'blog', 'posts'))
+}
+
+export function isListedPost(post: BlogPost) {
+  return post.metadata.listed !== false
+}
+
+export function getListedProjects() {
+  return getProjects().filter(isListedPost)
 }
 
 export function formatDate(date: string, includeRelative = false) {
