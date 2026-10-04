@@ -12,6 +12,7 @@ import {
   DailySchedule,
   LeechTally,
   MoodBoard,
+  PhotoCaption,
   ReadingList,
   RetreatDebrief,
 } from 'app/components/blog-extras'
@@ -126,6 +127,7 @@ let components = {
   MoodBoard,
   ReadingList,
   LeechTally,
+  PhotoCaption,
   ClosingStatement,
   RetreatDebrief,
 }

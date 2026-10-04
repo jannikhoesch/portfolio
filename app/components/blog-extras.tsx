@@ -288,6 +288,14 @@ export function LeechTally({
   )
 }
 
+export function PhotoCaption({ text }: { text: string }) {
+  return (
+    <p className="not-prose text-sm font-medium tracking-tight text-neutral-500 dark:text-neutral-400 mt-8 mb-3">
+      {text}
+    </p>
+  )
+}
+
 export function ClosingStatement({ text }: { text: string }) {
   return (
     <p className="not-prose my-10 text-center text-lg sm:text-xl italic text-neutral-700 dark:text-neutral-300 text-balance">
