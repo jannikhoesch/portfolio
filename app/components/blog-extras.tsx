@@ -272,7 +272,7 @@ export function LeechTally({
   }
 
   return (
-    <div className="not-prose my-8">
+    <div className="not-prose my-10 text-center">
       <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-3">
         {label}
       </p>
