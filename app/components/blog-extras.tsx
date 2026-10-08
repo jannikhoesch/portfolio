@@ -311,3 +311,12 @@ export function RetreatDebrief({ children }: { children: ReactNode }) {
     </section>
   )
 }
+
+export function SectionBreak() {
+  return (
+    <div
+      className="not-prose mt-16 mb-10 border-t border-neutral-200 dark:border-neutral-800"
+      aria-hidden="true"
+    />
+  )
+}

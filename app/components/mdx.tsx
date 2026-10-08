@@ -15,6 +15,7 @@ import {
   PhotoCaption,
   ReadingList,
   RetreatDebrief,
+  SectionBreak,
 } from 'app/components/blog-extras'
 
 function Table({ data }) {
@@ -130,6 +131,7 @@ let components = {
   PhotoCaption,
   ClosingStatement,
   RetreatDebrief,
+  SectionBreak,
 }
 
 export function CustomMDX(props) {
