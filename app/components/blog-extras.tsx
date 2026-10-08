@@ -290,7 +290,7 @@ export function LeechTally({
 
 export function PhotoCaption({ text }: { text: string }) {
   return (
-    <p className="not-prose text-xs tracking-wide text-neutral-300 dark:text-neutral-600 -mt-6 mb-8">
+    <p className="not-prose text-center text-xs tracking-wide text-neutral-300 dark:text-neutral-600 -mt-4 mb-6">
       {text}
     </p>
   )
