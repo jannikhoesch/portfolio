@@ -27,17 +27,25 @@ describe('getProjects', () => {
     }
   })
 
-  it('keeps unlisted posts available by slug but out of the public list', () => {
+  it('includes listed posts in the public list and filters unlisted ones', () => {
     const allPosts = getProjects()
     const listedPosts = getListedProjects()
-    const unlisted = allPosts.find((post) => post.slug === 'silent-retreat')
+    const silentRetreat = allPosts.find((post) => post.slug === 'silent-retreat')
 
-    expect(unlisted).toBeTruthy()
-    expect(unlisted?.metadata.listed).toBe(false)
-    expect(isListedPost(unlisted!)).toBe(false)
+    expect(silentRetreat).toBeTruthy()
+    expect(silentRetreat?.metadata.listed).toBe(true)
+    expect(isListedPost(silentRetreat!)).toBe(true)
     expect(listedPosts.some((post) => post.slug === 'silent-retreat')).toBe(
-      false
+      true
     )
-    expect(listedPosts.length).toBe(allPosts.length - 1)
+
+    const unlistedExample = {
+      ...silentRetreat!,
+      metadata: { ...silentRetreat!.metadata, listed: false },
+    }
+    expect(isListedPost(unlistedExample)).toBe(false)
+    expect(
+      listedPosts.every((post) => post.metadata.listed !== false)
+    ).toBe(true)
   })
 })
