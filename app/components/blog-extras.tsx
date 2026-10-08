@@ -272,7 +272,7 @@ export function LeechTally({
   }
 
   return (
-    <div className="not-prose my-8">
+    <div className="not-prose my-10 text-center">
       <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-3">
         {label}
       </p>
@@ -290,7 +290,7 @@ export function LeechTally({
 
 export function PhotoCaption({ text }: { text: string }) {
   return (
-    <p className="not-prose text-sm tracking-tight text-neutral-400 dark:text-neutral-500 -mt-5 mb-8">
+    <p className="not-prose text-xs tracking-wide text-neutral-300 dark:text-neutral-600 -mt-6 mb-8">
       {text}
     </p>
   )
@@ -309,5 +309,14 @@ export function RetreatDebrief({ children }: { children: ReactNode }) {
     <section className="not-prose mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800 text-center">
       {children}
     </section>
+  )
+}
+
+export function SectionBreak() {
+  return (
+    <div
+      className="not-prose mt-16 mb-10 border-t border-neutral-200 dark:border-neutral-800"
+      aria-hidden="true"
+    />
   )
 }
